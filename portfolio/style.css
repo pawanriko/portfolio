@@ -327,7 +327,7 @@ h1, h2, h3 {
 .menu-cta:hover {
     background: #f2f1ec;
     color: #111110;
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.03);
 }
 
 .menu-foot {
@@ -455,7 +455,7 @@ main {
 }
 
 .btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.06);
 }
 
 .btn-solid {
@@ -978,5 +978,63 @@ main {
 
     .service .chips {
         grid-column: 1;
+    }
+}
+
+/* ---------- cursor follower (JS adds the elements) ---------- */
+.cursor-shadow,
+.cursor-ring,
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 9999;
+    will-change: transform;
+}
+
+body.has-cursor .cursor-shadow,
+body.has-cursor .cursor-ring,
+body.has-cursor .cursor-dot {
+    opacity: 1;
+}
+
+/* soft shadow blob trailing behind everything */
+.cursor-shadow {
+    width: 64px;
+    height: 64px;
+    background: rgba(10, 10, 10, 0.35);
+    filter: blur(18px);
+    z-index: 9997;
+}
+
+/* the black/white circle — difference blend flips it over any background */
+.cursor-ring {
+    width: 38px;
+    height: 38px;
+    background: #fff;
+    mix-blend-mode: difference;
+    transition: width 0.25s ease, height 0.25s ease;
+}
+
+.cursor-ring.is-hover {
+    width: 58px;
+    height: 58px;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    mix-blend-mode: difference;
+}
+
+@media (hover: none), (pointer: coarse) {
+    .cursor-shadow,
+    .cursor-ring,
+    .cursor-dot {
+        display: none;
     }
 }
