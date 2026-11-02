@@ -1,12 +1,15 @@
-// Pawan Kumar — portfolio scripts
-// Theme toggle, mobile menu, scroll reveal, active nav highlighting.
+// Pawan Kumar — portfolio v3 scripts
+// Preloader, theme, custom cursor, magnetic buttons, scroll
+// progress, reveal animations, live Delhi clock.
 
 (function () {
     "use strict";
 
-    /* ---------- dark / light theme ---------- */
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var finePointer = window.matchMedia("(pointer: fine)").matches;
+
+    /* ---------- theme (dark is the default look) ---------- */
     var root = document.documentElement;
-    var themeToggle = document.getElementById("themeToggle");
 
     function savedTheme() {
         try {
@@ -16,26 +19,48 @@
         }
     }
 
-    function applyTheme(theme) {
-        root.setAttribute("data-theme", theme);
-        try {
-            window.localStorage.setItem("theme", theme);
-        } catch (e) {
-            /* private mode — theme just won't persist */
-        }
-    }
+    var initialTheme = savedTheme() || "dark";
+    root.setAttribute("data-theme", initialTheme);
 
-    var initial = savedTheme();
-    if (!initial) {
-        initial = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    root.setAttribute("data-theme", initial);
-
+    var themeToggle = document.getElementById("themeToggle");
     if (themeToggle) {
         themeToggle.addEventListener("click", function () {
             var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-            applyTheme(next);
+            root.setAttribute("data-theme", next);
+            try {
+                window.localStorage.setItem("theme", next);
+            } catch (e) { /* private mode — fine */ }
         });
+    }
+
+    /* ---------- preloader ---------- */
+    var preloader = document.getElementById("preloader");
+    var counter = document.getElementById("preloaderCount");
+
+    function finishLoad() {
+        document.body.classList.add("loaded");
+        if (preloader) {
+            preloader.classList.add("done");
+            window.setTimeout(function () {
+                preloader.style.display = "none";
+            }, 900);
+        }
+    }
+
+    if (reducedMotion || !preloader || !counter) {
+        if (preloader) { preloader.style.display = "none"; }
+        document.body.classList.add("loaded");
+    } else {
+        var value = 0;
+        var timer = window.setInterval(function () {
+            value += Math.floor(Math.random() * 14) + 6;
+            if (value >= 100) {
+                value = 100;
+                window.clearInterval(timer);
+                window.setTimeout(finishLoad, 120);
+            }
+            counter.textContent = value + "%";
+        }, 90);
     }
 
     /* ---------- mobile menu ---------- */
@@ -49,7 +74,6 @@
             navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
         });
 
-        // Close the menu after picking a section (mobile).
         navLinks.addEventListener("click", function (event) {
             if (event.target.closest("a")) {
                 navLinks.classList.remove("open");
@@ -58,10 +82,71 @@
         });
     }
 
-    /* ---------- reveal on scroll ---------- */
-    var revealItems = document.querySelectorAll(".reveal");
+    /* ---------- custom cursor ---------- */
+    if (finePointer && !reducedMotion) {
+        var dot = document.getElementById("cursorDot");
+        var ring = document.getElementById("cursorRing");
+        var mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
 
-    if ("IntersectionObserver" in window) {
+        document.addEventListener("mousemove", function (event) {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+            if (dot) {
+                dot.style.left = mouseX + "px";
+                dot.style.top = mouseY + "px";
+            }
+        });
+
+        (function animateRing() {
+            ringX += (mouseX - ringX) * 0.16;
+            ringY += (mouseY - ringY) * 0.16;
+            if (ring) {
+                ring.style.left = ringX + "px";
+                ring.style.top = ringY + "px";
+            }
+            window.requestAnimationFrame(animateRing);
+        })();
+
+        document.querySelectorAll("a, button").forEach(function (el) {
+            el.addEventListener("mouseenter", function () {
+                if (ring) { ring.classList.add("grow"); }
+            });
+            el.addEventListener("mouseleave", function () {
+                if (ring) { ring.classList.remove("grow"); }
+            });
+        });
+    }
+
+    /* ---------- magnetic buttons ---------- */
+    if (finePointer && !reducedMotion) {
+        document.querySelectorAll(".magnetic").forEach(function (el) {
+            el.addEventListener("mousemove", function (event) {
+                var rect = el.getBoundingClientRect();
+                var x = event.clientX - rect.left - rect.width / 2;
+                var y = event.clientY - rect.top - rect.height / 2;
+                el.style.transform = "translate(" + x * 0.22 + "px," + y * 0.28 + "px)";
+            });
+            el.addEventListener("mouseleave", function () {
+                el.style.transform = "";
+            });
+        });
+    }
+
+    /* ---------- scroll progress + reveal + active nav ---------- */
+    var progress = document.getElementById("progress");
+
+    function onScroll() {
+        if (!progress) { return; }
+        var height = document.documentElement.scrollHeight - window.innerHeight;
+        var done = height > 0 ? (window.scrollY / height) * 100 : 0;
+        progress.style.width = done + "%";
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    var revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !reducedMotion) {
         var revealObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
@@ -69,40 +154,49 @@
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.12 });
+        }, { threshold: 0.1 });
 
-        revealItems.forEach(function (item) {
-            revealObserver.observe(item);
-        });
+        revealItems.forEach(function (item) { revealObserver.observe(item); });
     } else {
-        revealItems.forEach(function (item) {
-            item.classList.add("in");
-        });
+        revealItems.forEach(function (item) { item.classList.add("in"); });
     }
 
-    /* ---------- highlight the nav link of the section in view ---------- */
     var navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
     var sections = document.querySelectorAll("main section[id]");
-
     if ("IntersectionObserver" in window && navAnchors.length && sections.length) {
-        var current = null;
         var sectionObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
-                    current = entry.target.id;
                     navAnchors.forEach(function (anchor) {
-                        anchor.classList.toggle("active", anchor.getAttribute("href") === "#" + current);
+                        anchor.classList.toggle("active", anchor.getAttribute("href") === "#" + entry.target.id);
                     });
                 }
             });
         }, { rootMargin: "-40% 0px -55% 0px" });
 
-        sections.forEach(function (section) {
-            sectionObserver.observe(section);
-        });
+        sections.forEach(function (section) { sectionObserver.observe(section); });
     }
 
-    /* ---------- footer year ---------- */
+    /* ---------- live Delhi clock + year ---------- */
+    var clock = document.getElementById("localTime");
+
+    function tickClock() {
+        if (!clock) { return; }
+        try {
+            clock.textContent = new Date().toLocaleTimeString("en-IN", {
+                timeZone: "Asia/Kolkata",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            });
+        } catch (e) {
+            clock.textContent = new Date().toLocaleTimeString();
+        }
+    }
+
+    tickClock();
+    window.setInterval(tickClock, 20000);
+
     var year = document.getElementById("year");
     if (year) {
         year.textContent = String(new Date().getFullYear());
