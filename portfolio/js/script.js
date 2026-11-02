@@ -1,14 +1,13 @@
-// Pawan Kumar — portfolio v3 scripts
-// Preloader, theme, custom cursor, magnetic buttons, scroll
-// progress, reveal animations, live Delhi clock.
+// Pawan Kumar — portfolio v4 scripts
+// Theme toggle, mobile menu, FAQ accordion, scroll reveal,
+// active nav highlighting, live Delhi clock.
 
 (function () {
     "use strict";
 
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var finePointer = window.matchMedia("(pointer: fine)").matches;
 
-    /* ---------- theme (dark is the default look) ---------- */
+    /* ---------- theme (light is the home theme) ---------- */
     var root = document.documentElement;
 
     function savedTheme() {
@@ -19,8 +18,7 @@
         }
     }
 
-    var initialTheme = savedTheme() || "dark";
-    root.setAttribute("data-theme", initialTheme);
+    root.setAttribute("data-theme", savedTheme() || "light");
 
     var themeToggle = document.getElementById("themeToggle");
     if (themeToggle) {
@@ -31,36 +29,6 @@
                 window.localStorage.setItem("theme", next);
             } catch (e) { /* private mode — fine */ }
         });
-    }
-
-    /* ---------- preloader ---------- */
-    var preloader = document.getElementById("preloader");
-    var counter = document.getElementById("preloaderCount");
-
-    function finishLoad() {
-        document.body.classList.add("loaded");
-        if (preloader) {
-            preloader.classList.add("done");
-            window.setTimeout(function () {
-                preloader.style.display = "none";
-            }, 900);
-        }
-    }
-
-    if (reducedMotion || !preloader || !counter) {
-        if (preloader) { preloader.style.display = "none"; }
-        document.body.classList.add("loaded");
-    } else {
-        var value = 0;
-        var timer = window.setInterval(function () {
-            value += Math.floor(Math.random() * 14) + 6;
-            if (value >= 100) {
-                value = 100;
-                window.clearInterval(timer);
-                window.setTimeout(finishLoad, 120);
-            }
-            counter.textContent = value + "%";
-        }, 90);
     }
 
     /* ---------- mobile menu ---------- */
@@ -82,69 +50,31 @@
         });
     }
 
-    /* ---------- custom cursor ---------- */
-    if (finePointer && !reducedMotion) {
-        var dot = document.getElementById("cursorDot");
-        var ring = document.getElementById("cursorRing");
-        var mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
+    /* ---------- FAQ accordion ---------- */
+    document.querySelectorAll(".faq").forEach(function (item) {
+        var button = item.querySelector(".faq-q");
+        var panel = item.querySelector(".faq-a");
+        if (!button || !panel) { return; }
 
-        document.addEventListener("mousemove", function (event) {
-            mouseX = event.clientX;
-            mouseY = event.clientY;
-            if (dot) {
-                dot.style.left = mouseX + "px";
-                dot.style.top = mouseY + "px";
+        button.addEventListener("click", function () {
+            var isOpen = item.classList.contains("open");
+
+            // Close everything else first — one answer open at a time.
+            document.querySelectorAll(".faq.open").forEach(function (other) {
+                other.classList.remove("open");
+                other.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+                other.querySelector(".faq-a").style.maxHeight = null;
+            });
+
+            if (!isOpen) {
+                item.classList.add("open");
+                button.setAttribute("aria-expanded", "true");
+                panel.style.maxHeight = panel.scrollHeight + "px";
             }
         });
+    });
 
-        (function animateRing() {
-            ringX += (mouseX - ringX) * 0.16;
-            ringY += (mouseY - ringY) * 0.16;
-            if (ring) {
-                ring.style.left = ringX + "px";
-                ring.style.top = ringY + "px";
-            }
-            window.requestAnimationFrame(animateRing);
-        })();
-
-        document.querySelectorAll("a, button").forEach(function (el) {
-            el.addEventListener("mouseenter", function () {
-                if (ring) { ring.classList.add("grow"); }
-            });
-            el.addEventListener("mouseleave", function () {
-                if (ring) { ring.classList.remove("grow"); }
-            });
-        });
-    }
-
-    /* ---------- magnetic buttons ---------- */
-    if (finePointer && !reducedMotion) {
-        document.querySelectorAll(".magnetic").forEach(function (el) {
-            el.addEventListener("mousemove", function (event) {
-                var rect = el.getBoundingClientRect();
-                var x = event.clientX - rect.left - rect.width / 2;
-                var y = event.clientY - rect.top - rect.height / 2;
-                el.style.transform = "translate(" + x * 0.22 + "px," + y * 0.28 + "px)";
-            });
-            el.addEventListener("mouseleave", function () {
-                el.style.transform = "";
-            });
-        });
-    }
-
-    /* ---------- scroll progress + reveal + active nav ---------- */
-    var progress = document.getElementById("progress");
-
-    function onScroll() {
-        if (!progress) { return; }
-        var height = document.documentElement.scrollHeight - window.innerHeight;
-        var done = height > 0 ? (window.scrollY / height) * 100 : 0;
-        progress.style.width = done + "%";
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
+    /* ---------- reveal on scroll ---------- */
     var revealItems = document.querySelectorAll(".reveal");
     if ("IntersectionObserver" in window && !reducedMotion) {
         var revealObserver = new IntersectionObserver(function (entries) {
@@ -154,13 +84,14 @@
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.08 });
 
         revealItems.forEach(function (item) { revealObserver.observe(item); });
     } else {
         revealItems.forEach(function (item) { item.classList.add("in"); });
     }
 
+    /* ---------- active nav link ---------- */
     var navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
     var sections = document.querySelectorAll("main section[id]");
     if ("IntersectionObserver" in window && navAnchors.length && sections.length) {
