@@ -31,22 +31,41 @@
         });
     }
 
-    /* ---------- mobile menu ---------- */
+    /* ---------- full-screen overlay menu ---------- */
     var navToggle = document.getElementById("navToggle");
-    var navLinks = document.getElementById("navLinks");
+    var menuOverlay = document.getElementById("menuOverlay");
+    var menuClose = document.getElementById("menuClose");
 
-    if (navToggle && navLinks) {
+    function setMenu(open) {
+        if (!menuOverlay || !navToggle) { return; }
+        menuOverlay.classList.toggle("open", open);
+        menuOverlay.setAttribute("aria-hidden", open ? "false" : "true");
+        document.body.classList.toggle("menu-open", open);
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    }
+
+    if (navToggle && menuOverlay) {
         navToggle.addEventListener("click", function () {
-            var open = navLinks.classList.toggle("open");
-            navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-            navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+            setMenu(!menuOverlay.classList.contains("open"));
         });
 
-        navLinks.addEventListener("click", function (event) {
-            if (event.target.closest("a")) {
-                navLinks.classList.remove("open");
-                navToggle.setAttribute("aria-expanded", "false");
-            }
+        if (menuClose) {
+            menuClose.addEventListener("click", function () { setMenu(false); });
+        }
+
+        // Click the dimmed backdrop (outside the panel) to close.
+        menuOverlay.addEventListener("click", function (event) {
+            if (event.target === menuOverlay) { setMenu(false); }
+        });
+
+        // Any menu link closes the menu before jumping to the section.
+        menuOverlay.addEventListener("click", function (event) {
+            if (event.target.closest(".menu-links a")) { setMenu(false); }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") { setMenu(false); }
         });
     }
 
@@ -92,7 +111,7 @@
     }
 
     /* ---------- active nav link ---------- */
-    var navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+    var navAnchors = document.querySelectorAll('.menu-links a[href^="#"]');
     var sections = document.querySelectorAll("main section[id]");
     if ("IntersectionObserver" in window && navAnchors.length && sections.length) {
         var sectionObserver = new IntersectionObserver(function (entries) {
