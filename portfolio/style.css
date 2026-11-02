@@ -409,6 +409,8 @@ main {
     width: 100%;
     aspect-ratio: 4 / 4.6;
     object-fit: cover;
+    object-position: 50% 12%;
+    background: #f5f4f0;
 }
 
 .hero-meta {
