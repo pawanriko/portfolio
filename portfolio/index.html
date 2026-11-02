@@ -21,22 +21,39 @@
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
             <a class="logo" href="#top">Pawan Kumar<span class="reg">®</span></a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#work">Work</a></li>
-                <li><a href="#doing">What I do</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Switch between dark and light mode">◐</button>
-                </li>
-            </ul>
+            <p class="nav-tagline">ONE DEV, END TO END</p>
             <p class="nav-meta">New Delhi, IN — <span id="localTime">--:--</span></p>
-            <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
-                <span></span><span></span><span></span>
+            <button class="menu-button" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">
+                <span></span><span></span><span></span><span></span>
             </button>
         </nav>
     </header>
+
+    <!-- ============ FULL-SCREEN MENU ============ -->
+    <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+        <div class="menu-panel">
+            <div class="menu-top">
+                <span class="menu-mark">P<span class="reg">®</span></span>
+                <p class="menu-tagline">ONE DEV, END TO END</p>
+                <button class="menu-close" id="menuClose" aria-label="Close menu">✕</button>
+            </div>
+            <ul class="menu-links">
+                <li><a href="#top">Home <span class="menu-arrow">↗</span></a></li>
+                <li><a href="#work">Work <span class="menu-arrow">+</span></a></li>
+                <li><a href="#doing">What I do <span class="menu-arrow">+</span></a></li>
+                <li><a href="#about">About <span class="menu-arrow">↗</span></a></li>
+                <li><a href="#faq">FAQ <span class="menu-arrow">+</span></a></li>
+                <li><a href="#contact">Contact <span class="menu-arrow">↗</span></a></li>
+            </ul>
+            <div class="menu-bottom">
+                <a class="menu-cta" href="mailto:pawanriko@gmail.com">Start a conversation</a>
+                <div class="menu-foot">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Switch between dark and light mode">◐</button>
+                    <p>pawanriko@gmail.com — New Delhi, IN</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main id="top">
         <!-- ============ HERO ============ -->
@@ -101,7 +118,9 @@
         <!-- ============ PROJECT DETAILS ============ -->
         <section class="section" aria-label="Project details">
             <article class="feature reveal">
-                <div class="feature-media feature-media--mono" aria-hidden="true">HS</div>
+                <div class="feature-media">
+                    <img src="images/cover-hiresense.jpg" alt="Illustrated cover for HireSense AI: a resume with a score ring and checkmarks" loading="lazy">
+                </div>
                 <div class="feature-body">
                     <p class="feature-index">( 001 ) — Flagship</p>
                     <h3>HireSense AI</h3>
@@ -124,7 +143,7 @@
 
             <article class="feature feature--flip reveal">
                 <div class="feature-media">
-                    <img src="images/kai.png" alt="Screenshot of the KAI assistant interface" loading="lazy">
+                    <img src="images/cover-kai.jpg" alt="Illustrated cover for Kai-AI: a glowing assistant tile with chat bubbles orbiting it" loading="lazy">
                 </div>
                 <div class="feature-body">
                     <p class="feature-index">( 002 ) — Flagship</p>
@@ -148,7 +167,7 @@
 
             <div class="mini-row">
                 <article class="mini reveal">
-                    <img src="images/dsa.png" alt="Screenshot of the DSA Visualizer" loading="lazy">
+                    <img src="images/cover-dsa.jpg" alt="Illustrated cover for the DSA Visualizer: sorting bars and a graph" loading="lazy">
                     <p class="feature-index">( 003 )</p>
                     <h3>DSA Visualizer</h3>
                     <p>Shows data structures and algorithms moving step by step. Watching it happen is how it actually clicked for me.</p>
@@ -157,7 +176,7 @@
                     </div>
                 </article>
                 <article class="mini reveal">
-                    <img src="images/sms.png" alt="Screenshot of the Student Management System running in a console" loading="lazy">
+                    <img src="images/cover-sms.jpg" alt="Illustrated cover for the Student Management System: record cards and a table under a magnifier" loading="lazy">
                     <p class="feature-index">( 004 )</p>
                     <h3>Student Management System</h3>
                     <p>A C++ console app for student records, saved to a file so they survive between runs. It taught me file handling properly.</p>
