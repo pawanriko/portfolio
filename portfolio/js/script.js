@@ -151,4 +151,64 @@
     if (year) {
         year.textContent = String(new Date().getFullYear());
     }
+
+    /* ---------- cursor follower: dot + black/white circle + soft shadow ---------- */
+    var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (finePointer && !reducedMotion) {
+        var shadow = document.createElement("div");
+        shadow.className = "cursor-shadow";
+        var ring = document.createElement("div");
+        ring.className = "cursor-ring";
+        var dot = document.createElement("div");
+        dot.className = "cursor-dot";
+        document.body.appendChild(shadow);
+        document.body.appendChild(ring);
+        document.body.appendChild(dot);
+
+        var mx = -100, my = -100;          // mouse target
+        var rx = -100, ry = -100;          // ring position (lags)
+        var sx = -100, sy = -100;          // shadow position (lags more)
+        var shown = false;
+
+        document.addEventListener("mousemove", function (e) {
+            mx = e.clientX;
+            my = e.clientY;
+            if (!shown) {
+                rx = sx = mx;
+                ry = sy = my;
+                document.body.classList.add("has-cursor");
+                shown = true;
+            }
+            dot.style.transform = "translate(" + (mx - 3) + "px," + (my - 3) + "px)";
+        });
+
+        document.addEventListener("mouseleave", function () {
+            document.body.classList.remove("has-cursor");
+            shown = false;
+        });
+
+        (function followCursor() {
+            rx += (mx - rx) * 0.16;
+            ry += (my - ry) * 0.16;
+            sx += (mx - sx) * 0.07;
+            sy += (my - sy) * 0.07;
+            var ringHalf = ring.classList.contains("is-hover") ? 29 : 19;
+            ring.style.transform = "translate(" + (rx - ringHalf) + "px," + (ry - ringHalf) + "px)";
+            shadow.style.transform = "translate(" + (sx - 32) + "px," + (sy - 32) + "px)";
+            window.requestAnimationFrame(followCursor);
+        })();
+
+        var hoverables = "a, button, .faq-q, input, textarea, [data-cursor]";
+        document.addEventListener("mouseover", function (e) {
+            if (e.target.closest(hoverables)) {
+                ring.classList.add("is-hover");
+            }
+        });
+        document.addEventListener("mouseout", function (e) {
+            if (e.target.closest(hoverables)) {
+                ring.classList.remove("is-hover");
+            }
+        });
+    }
 })();
