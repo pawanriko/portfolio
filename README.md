@@ -1,30 +1,29 @@
-# Personal Portfolio Website
+# My Portfolio Website
 
-My personal portfolio website — a modern, responsive single-page site showcasing my skills, projects, education, and contact details.
+This is my personal portfolio — one page with my skills, projects, education and contact details, plus a button to download my resume. I made it with plain HTML, CSS and JavaScript, no framework. It was one of my first proper web projects.
 
 ## Preview
 
 ![Profile](portfolio/images/profile.jpeg)
 
-## Features
+## What's on the page
 
-- Responsive, clean UI
-- Hero section with introduction
-- About Me section
-- Skills showcase
-- Projects section (KAI AI, DSA Visualizer, Student Management System)
-- Education section
-- Contact information
+- A hero section with my intro
+- About me
+- Skills
+- Projects (KAI AI, DSA Visualizer, Student Management System)
+- Education
+- Contact details
 - Resume download button
-- Smooth scrolling navigation
+- Smooth scrolling between sections
 
-## Built With
+It adjusts to mobile screens too.
 
-- HTML5
-- CSS3
-- JavaScript
+## Built with
 
-## Project Structure
+HTML5, CSS3 and vanilla JavaScript. That's all.
+
+## Project structure
 
 ```
 portfolio/
@@ -40,21 +39,21 @@ portfolio/
         └── sms.png
 ```
 
-## Featured Projects
+## Projects shown on it
 
 ### KAI AI
-An AI-powered personal assistant with chat, memory, voice input, and image upload.
+An AI assistant I built that chats, remembers things, takes voice input and can look at images you upload.
 **Tech:** HTML, CSS, JavaScript, Groq API — [Repo](https://github.com/pawanriko/KAI)
 
 ### DSA Visualizer
-Visualises data structures and algorithms with animations, making complex concepts easier to understand.
+Shows data structures and algorithms moving step by step, so the concepts are easier to follow.
 **Tech:** HTML, CSS, JavaScript — [Repo](https://github.com/pawanriko/mini-project)
 
 ### Student Management System
-Console-based C++ application for managing student records.
+A C++ console app for managing student records, saved in a file.
 **Tech:** C++ — [Repo](https://github.com/pawanriko/mini-project)
 
-## Getting Started
+## See it locally
 
 ```bash
 git clone https://github.com/pawanriko/portfolio.git
@@ -63,9 +62,9 @@ cd portfolio
 
 Then open `portfolio/index.html` in your browser.
 
-## What I Learned
+## What I learned making this
 
-Semantic HTML, CSS layouts & Flexbox, responsive design, UI design principles, and project organisation.
+Semantic HTML, CSS layouts and Flexbox, making a page responsive, and how to organise a small project properly.
 
 ## Contact
 
@@ -76,4 +75,4 @@ Semantic HTML, CSS layouts & Flexbox, responsive design, UI design principles, a
 
 ## License
 
-This project is open source and available under the MIT License.
+MIT — open source, use it if you find it useful.
