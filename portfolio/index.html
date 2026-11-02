@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +16,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+        <p class="preloader-name">PAWAN KUMAR</p>
+        <p class="preloader-count" id="preloaderCount">0%</p>
+    </div>
+
+    <!-- Custom cursor (desktop pointers only) -->
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+    <!-- Scroll progress -->
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
     <a class="skip-link" href="#about">Skip to content</a>
 
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
-            <a class="logo" href="#hero">PAWAN&nbsp;KUMAR<span class="logo-dot">.</span></a>
+            <a class="logo magnetic" href="#hero">PAWAN&nbsp;KUMAR<span class="logo-dot">.</span></a>
             <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
                 <span></span><span></span><span></span>
             </button>
@@ -40,33 +53,66 @@
     <main>
         <!-- ============ HERO ============ -->
         <section id="hero" class="hero">
-            <div class="hero-text reveal">
-                <p class="kicker">BCA STUDENT · IITM JANAKPURI · NEW DELHI</p>
-                <h1>I build web apps<br>&amp; AI tools.</h1>
-                <p class="hero-sub">
-                    I'm Pawan Kumar, a full-stack developer working with Django and React.
-                    I've shipped two live products — an interview-prep platform and a personal
-                    AI assistant — and I'm looking for internships where I can build real things.
-                </p>
-                <div class="hero-buttons">
-                    <a class="btn btn-solid" href="#projects">See my work</a>
-                    <a class="btn btn-outline" href="#contact">Get in touch</a>
+            <div class="hero-top">
+                <p class="kicker reveal-hero">BCA STUDENT — IITM JANAKPURI, NEW DELHI</p>
+                <p class="kicker reveal-hero">FOLIO / 2026</p>
+            </div>
+
+            <h1 class="hero-name" aria-label="Pawan Kumar">
+                <span class="line-mask"><span class="line-inner">PAWAN</span></span>
+                <span class="line-mask"><span class="line-inner">KUMAR<span class="reg">®</span></span></span>
+            </h1>
+
+            <div class="hero-grid">
+                <div class="hero-photo reveal-hero">
+                    <img src="images/profile.jpeg" alt="Portrait of Pawan Kumar" width="640" height="640">
+                    <p class="photo-caption">EST. 2025 — STILL SHIPPING</p>
                 </div>
-                <ul class="hero-facts">
-                    <li><strong>Stack</strong> Django · React · Python</li>
-                    <li><strong>Live</strong> 2 products in production</li>
-                    <li><strong>Status</strong> Open to internships</li>
-                </ul>
+                <div class="hero-side reveal-hero">
+                    <h2 class="hero-role">Full-stack developer<br><span class="outline-text">Django + React</span></h2>
+                    <p class="hero-sub">
+                        I build web apps and AI tools. Two of them are live right now —
+                        an interview-prep platform and a personal AI assistant.
+                        I'm looking for internships where I can build real things.
+                    </p>
+                    <div class="hero-buttons">
+                        <a class="btn btn-solid magnetic" href="#projects">See my work ↗</a>
+                        <a class="btn btn-outline magnetic" href="#contact">Get in touch</a>
+                    </div>
+                </div>
+                <div class="hero-badge reveal-hero" aria-hidden="true">
+                    <svg viewBox="0 0 120 120" class="badge-svg">
+                        <defs>
+                            <path id="badgeCircle" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0"></path>
+                        </defs>
+                        <text class="badge-text">
+                            <textPath href="#badgeCircle">OPEN TO INTERNSHIPS • FULL-STACK DEVELOPER • </textPath>
+                        </text>
+                    </svg>
+                    <span class="badge-arrow">↓</span>
+                </div>
             </div>
-            <div class="hero-photo reveal">
-                <img src="images/profile.jpeg" alt="Portrait of Pawan Kumar" width="640" height="640">
-            </div>
+
+            <ul class="hero-facts reveal-hero">
+                <li><strong>Stack</strong> Django · React · Python</li>
+                <li><strong>Live</strong> 2 products in production</li>
+                <li><strong>Tests</strong> 178 passing on HireSense</li>
+                <li><strong>Status</strong> Open to internships</li>
+            </ul>
         </section>
+
+        <!-- Marquee -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>PYTHON — DJANGO — REACT — JAVASCRIPT — C++ — POSTGRESQL — AI AGENTS — REST APIs —&nbsp;</span>
+                <span>PYTHON — DJANGO — REACT — JAVASCRIPT — C++ — POSTGRESQL — AI AGENTS — REST APIs —&nbsp;</span>
+            </div>
+        </div>
 
         <!-- ============ ABOUT ============ -->
         <section id="about" class="section">
             <p class="section-label reveal">01 — ABOUT</p>
-            <h2 class="reveal">About me</h2>
+            <h2 class="section-title reveal">The short <span class="outline-text">story</span></h2>
             <div class="about-grid">
                 <p class="reveal">
                     I'm in my 3rd semester of BCA at IITM Janakpuri, New Delhi. I started with
@@ -94,7 +140,7 @@
         <!-- ============ SKILLS ============ -->
         <section id="skills" class="section">
             <p class="section-label reveal">02 — SKILLS</p>
-            <h2 class="reveal">What I work with</h2>
+            <h2 class="section-title reveal">What I <span class="outline-text">work with</span></h2>
             <div class="skills-grid">
                 <div class="skill-group reveal">
                     <h3>Languages</h3>
@@ -143,95 +189,92 @@
 
         <!-- ============ PROJECTS ============ -->
         <section id="projects" class="section">
-            <p class="section-label reveal">03 — PROJECTS</p>
-            <h2 class="reveal">Things I've built</h2>
+            <p class="section-label reveal">03 — SELECTED WORK</p>
+            <h2 class="section-title reveal">Things I've <span class="outline-text">built</span></h2>
 
-            <div class="project-grid">
-                <article class="project-card reveal">
-                    <div class="project-media project-media--mono" aria-hidden="true">HS</div>
-                    <div class="project-body">
-                        <p class="project-tags"><span class="live-badge">● LIVE</span> FLAGSHIP</p>
-                        <h3>HireSense AI</h3>
-                        <p>
-                            An interview-prep platform for candidates — I'm the user myself, so I built
-                            what I wanted: upload a resume and get an ATS score with a check-by-check
-                            breakdown, match it against a job description with real evidence quotes,
-                            practise mock interviews, and track applications. One rule I kept strict:
-                            every score comes from fixed rules, AI never computes a number.
-                        </p>
-                        <ul class="chips chips-small">
-                            <li>Django</li><li>React</li><li>PostgreSQL</li><li>Groq / Gemini</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://hiresense-ai-s8ih.onrender.com" target="_blank" rel="noopener">Live demo (demo / demo1234)</a>
-                            <a href="https://github.com/pawanriko/hiresense-ai" target="_blank" rel="noopener">Code</a>
-                        </div>
+            <article class="work-row reveal">
+                <p class="work-index">/01</p>
+                <div class="work-media work-media--mono" aria-hidden="true">HS</div>
+                <div class="work-body">
+                    <p class="project-tags"><span class="live-badge">● LIVE</span> FLAGSHIP — 2026</p>
+                    <h3>HireSense AI</h3>
+                    <p>
+                        An interview-prep platform for candidates — I'm the user myself, so I built
+                        what I wanted: upload a resume and get an ATS score with a check-by-check
+                        breakdown, match it against a job description with real evidence quotes,
+                        practise mock interviews, and track applications. One rule I kept strict:
+                        every score comes from fixed rules, AI never computes a number.
+                    </p>
+                    <ul class="chips chips-small">
+                        <li>Django</li><li>React</li><li>PostgreSQL</li><li>Groq / Gemini</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://hiresense-ai-s8ih.onrender.com" target="_blank" rel="noopener">Live demo (demo / demo1234) ↗</a>
+                        <a href="https://github.com/pawanriko/hiresense-ai" target="_blank" rel="noopener">Code ↗</a>
                     </div>
-                </article>
+                </div>
+            </article>
 
-                <article class="project-card reveal">
-                    <div class="project-media">
-                        <img src="images/kai.png" alt="Screenshot of the KAI assistant interface" loading="lazy">
+            <article class="work-row work-row--flip reveal">
+                <p class="work-index">/02</p>
+                <div class="work-media">
+                    <img src="images/kai.png" alt="Screenshot of the KAI assistant interface" loading="lazy">
+                </div>
+                <div class="work-body">
+                    <p class="project-tags"><span class="live-badge">● LIVE</span> FLAGSHIP — 2026</p>
+                    <h3>Kai-AI</h3>
+                    <p>
+                        My personal AI assistant, rebuilt as a full-stack app. It chats through
+                        five AI providers (Groq, OpenRouter, NVIDIA, DeepSeek, Gemini), remembers
+                        facts about me in a database, has an agent mode that uses tools, and a
+                        coding mode that edits files inside a locked-down sandbox. The first
+                        version was a single HTML file — this is the real one.
+                    </p>
+                    <ul class="chips chips-small">
+                        <li>Django</li><li>React</li><li>SQLite → Postgres</li><li>Multi-provider AI</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://kai-ai.antideploy.app" target="_blank" rel="noopener">Live demo ↗</a>
+                        <a href="https://github.com/pawanriko/Kai-AI" target="_blank" rel="noopener">Code ↗</a>
                     </div>
-                    <div class="project-body">
-                        <p class="project-tags"><span class="live-badge">● LIVE</span> FLAGSHIP</p>
-                        <h3>Kai-AI</h3>
-                        <p>
-                            My personal AI assistant, rebuilt as a full-stack app. It chats through
-                            five AI providers (Groq, OpenRouter, NVIDIA, DeepSeek, Gemini), remembers
-                            facts about me in a database, has an agent mode that uses tools, and a
-                            coding mode that edits files inside a locked-down sandbox. The first
-                            version was a single HTML file — this is the real one.
-                        </p>
-                        <ul class="chips chips-small">
-                            <li>Django</li><li>React</li><li>SQLite → Postgres</li><li>Multi-provider AI</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://kai-ai.antideploy.app" target="_blank" rel="noopener">Live demo</a>
-                            <a href="https://github.com/pawanriko/Kai-AI" target="_blank" rel="noopener">Code</a>
-                        </div>
-                    </div>
-                </article>
+                </div>
+            </article>
 
-                <article class="project-card reveal">
-                    <div class="project-media">
+            <div class="mini-grid">
+                <article class="mini-card reveal">
+                    <div class="mini-media">
                         <img src="images/dsa.png" alt="Screenshot of the DSA Visualizer" loading="lazy">
                     </div>
-                    <div class="project-body">
-                        <p class="project-tags">LEARNING PROJECT</p>
-                        <h3>DSA Visualizer</h3>
-                        <p>
-                            A web tool that shows data structures and algorithms moving step by step —
-                            sorting, searching, traversal. Reading about an algorithm is one thing;
-                            watching it happen is how it actually clicked for me.
-                        </p>
-                        <ul class="chips chips-small">
-                            <li>HTML</li><li>CSS</li><li>JavaScript</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://github.com/pawanriko/mini-project/tree/main/DSA%20Visualizer" target="_blank" rel="noopener">Code</a>
-                        </div>
+                    <p class="work-index">/03</p>
+                    <h3>DSA Visualizer</h3>
+                    <p>
+                        Shows data structures and algorithms moving step by step — sorting,
+                        searching, traversal. Watching it happen is how it actually clicked for me.
+                    </p>
+                    <ul class="chips chips-small">
+                        <li>HTML</li><li>CSS</li><li>JavaScript</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/pawanriko/mini-project/tree/main/DSA%20Visualizer" target="_blank" rel="noopener">Code ↗</a>
                     </div>
                 </article>
 
-                <article class="project-card reveal">
-                    <div class="project-media">
+                <article class="mini-card reveal">
+                    <div class="mini-media">
                         <img src="images/sms.png" alt="Screenshot of the Student Management System running in a console" loading="lazy">
                     </div>
-                    <div class="project-body">
-                        <p class="project-tags">LEARNING PROJECT</p>
-                        <h3>Student Management System</h3>
-                        <p>
-                            A C++ console app for managing student records — add, update, search and
-                            delete — with records saved to a file so they survive between runs.
-                            Small, but it taught me file handling properly.
-                        </p>
-                        <ul class="chips chips-small">
-                            <li>C++</li><li>File handling</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://github.com/pawanriko/mini-project/tree/main/Student%20Management%20System" target="_blank" rel="noopener">Code</a>
-                        </div>
+                    <p class="work-index">/04</p>
+                    <h3>Student Management System</h3>
+                    <p>
+                        A C++ console app for student records — add, update, search, delete —
+                        saved to a file so they survive between runs. Small, but it taught me
+                        file handling properly.
+                    </p>
+                    <ul class="chips chips-small">
+                        <li>C++</li><li>File handling</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/pawanriko/mini-project/tree/main/Student%20Management%20System" target="_blank" rel="noopener">Code ↗</a>
                     </div>
                 </article>
             </div>
@@ -247,11 +290,11 @@
         <!-- ============ EDUCATION ============ -->
         <section id="education" class="section">
             <p class="section-label reveal">04 — EDUCATION</p>
-            <h2 class="reveal">Education</h2>
+            <h2 class="section-title reveal">Educa<span class="outline-text">tion</span></h2>
             <article class="edu-card reveal">
                 <div>
                     <h3>Bachelor of Computer Applications (BCA)</h3>
-                    <p class="edu-place">IITM Janakpuri, New Delhi — currently in 3rd semester</p>
+                    <p class="edu-place">IITM JANAKPURI, NEW DELHI — 3RD SEMESTER</p>
                 </div>
                 <p class="edu-focus">
                     Focused on programming, web development, data structures and computer
@@ -263,24 +306,25 @@
         <!-- ============ CONTACT ============ -->
         <section id="contact" class="section contact">
             <p class="section-label reveal">05 — CONTACT</p>
-            <h2 class="reveal">Let's talk</h2>
+            <h2 class="giant-cta reveal">LET'S<br><span class="outline-text">TALK</span></h2>
             <p class="contact-line reveal">
-                I'm looking for internships and interesting projects. The fastest way to
-                reach me is email — I reply.
+                I'm looking for internships and interesting projects.
+                The fastest way to reach me is email — I reply.
             </p>
-            <a class="btn btn-solid reveal" href="mailto:pawanriko@gmail.com">pawanriko@gmail.com</a>
+            <a class="btn btn-solid magnetic reveal" href="mailto:pawanriko@gmail.com">pawanriko@gmail.com</a>
             <ul class="socials reveal">
-                <li><a href="https://github.com/pawanriko" target="_blank" rel="noopener">GitHub — pawanriko</a></li>
-                <li><a href="https://www.linkedin.com/in/pawanriko/" target="_blank" rel="noopener">LinkedIn — pawanriko</a></li>
-                <li><a href="https://leetcode.com/u/pawanriko/" target="_blank" rel="noopener">LeetCode — pawanriko</a></li>
-                <li><a href="https://www.hackerrank.com/profile/zecxoff" target="_blank" rel="noopener">HackerRank — zecxoff</a></li>
+                <li><a href="https://github.com/pawanriko" target="_blank" rel="noopener">GitHub <span>— pawanriko ↗</span></a></li>
+                <li><a href="https://www.linkedin.com/in/pawanriko/" target="_blank" rel="noopener">LinkedIn <span>— pawanriko ↗</span></a></li>
+                <li><a href="https://leetcode.com/u/pawanriko/" target="_blank" rel="noopener">LeetCode <span>— pawanriko ↗</span></a></li>
+                <li><a href="https://www.hackerrank.com/profile/zecxoff" target="_blank" rel="noopener">HackerRank <span>— zecxoff ↗</span></a></li>
             </ul>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>© <span id="year">2026</span> Pawan Kumar. All rights reserved.</p>
-        <p class="footer-note">Built with plain HTML, CSS &amp; JavaScript — no framework, no template.</p>
+        <p>© <span id="year">2026</span> Pawan Kumar — All rights reserved.</p>
+        <p class="footer-note">NEW DELHI, INDIA — <span id="localTime">--:--</span> IST</p>
+        <p class="footer-note">PLAIN HTML · CSS · JAVASCRIPT — NO FRAMEWORK, NO TEMPLATE</p>
     </footer>
 
     <script src="js/script.js"></script>
