@@ -1,197 +1,288 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" 
-    content="Portfolio of Pawan Kumar, a BCA student and aspiring Software Engineer specializing in C++, DSA, and Web Development.">
-    <title>Portfolio</title>
+    <title>Pawan Kumar — Full-Stack Developer (Django + React)</title>
+    <meta name="description" content="Portfolio of Pawan Kumar, a BCA student from New Delhi building full-stack web apps with Django and React, and AI tools like HireSense AI and Kai-AI.">
+    <meta property="og:title" content="Pawan Kumar — Full-Stack Developer (Django + React)">
+    <meta property="og:description" content="BCA student building web apps and AI tools. Creator of HireSense AI and Kai-AI.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial, sans-serif' font-size='36' font-weight='900' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header>
-        <nav>
-            <h2>Pawan kumar</h2>
-            <ul>
-                <li><a href="#hero">Home</a></li>
+    <a class="skip-link" href="#about">Skip to content</a>
+
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="logo" href="#hero">PAWAN&nbsp;KUMAR<span class="logo-dot">.</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Switch between dark and light mode">◐</button>
+                </li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section id="hero">
-
-    <div class="hero-image">
-        <img src="images/profile.jpeg" alt="Pawan Kumar">
-    </div>
-
-    <div class="hero-content">
-
-        <h4>Hello, I'm</h4>
-
-        <h1>Pawan Kumar</h1>
-
-        <h2>BCA Student</h2>
-
-        <p>
-            Aspiring Software Engineer passionate about C++, Data Structures &
-            Algorithms, Web Development, and solving real-world problems.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="#contact">Hire Me</a>
-            <a href="assets/resume.pdf" download>Download Resume</a>
-        </div>
-
-    </div>
-
-</section>
-        <section id="about">
-            <h2>About Me</h2>
-            <p>
-                I am currently pursuing Bachelor of Computer Applications (BCA).
-                I enjoy learning programming concepts and continuously improving my problem-solving skills through Data
-                Structures & Algorithms. My current focus is on C++, HTML, CSS, JavaScript,Git, Github, and Full Stack
-                Development. My goal is to become a skilled software Engineer and build impactful applications.
-            </p>
-
+        <!-- ============ HERO ============ -->
+        <section id="hero" class="hero">
+            <div class="hero-text reveal">
+                <p class="kicker">BCA STUDENT · IITM JANAKPURI · NEW DELHI</p>
+                <h1>I build web apps<br>&amp; AI tools.</h1>
+                <p class="hero-sub">
+                    I'm Pawan Kumar, a full-stack developer working with Django and React.
+                    I've shipped two live products — an interview-prep platform and a personal
+                    AI assistant — and I'm looking for internships where I can build real things.
+                </p>
+                <div class="hero-buttons">
+                    <a class="btn btn-solid" href="#projects">See my work</a>
+                    <a class="btn btn-outline" href="#contact">Get in touch</a>
+                </div>
+                <ul class="hero-facts">
+                    <li><strong>Stack</strong> Django · React · Python</li>
+                    <li><strong>Live</strong> 2 products in production</li>
+                    <li><strong>Status</strong> Open to internships</li>
+                </ul>
+            </div>
+            <div class="hero-photo reveal">
+                <img src="images/profile.jpeg" alt="Portrait of Pawan Kumar" width="640" height="640">
+            </div>
         </section>
-        <section id="skills">
-            <h2>Skills</h2>
-            <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>Git</li>
-                <li>Github</li>
-                <li>C++</li>
-                <li>Photo Editing</li>
-                <li>Video Editing</li>
-                <li>Content Management</li>
-                <li>Data Structures & Algorithms</li>
 
+        <!-- ============ ABOUT ============ -->
+        <section id="about" class="section">
+            <p class="section-label reveal">01 — ABOUT</p>
+            <h2 class="reveal">About me</h2>
+            <div class="about-grid">
+                <p class="reveal">
+                    I'm in my 3rd semester of BCA at IITM Janakpuri, New Delhi. I started with
+                    HTML, CSS and C++ like everyone else, then moved to full-stack development
+                    because I wanted to build complete products, not just pages. These days I
+                    work mostly in Python and JavaScript — Django on the backend, React on the
+                    frontend — and I spend a lot of my time figuring out how AI fits into
+                    products people actually use.
+                </p>
+                <p class="reveal">
+                    Side by side with college, I practise DSA and problem solving (LeetCode,
+                    HackerRank) and I build in public — everything I make is on my GitHub,
+                    including the mistakes I learned from.
+                </p>
+            </div>
+            <div class="highlight reveal">
+                <span class="highlight-tag">HIGHLIGHT</span>
+                <p>
+                    <strong>HackerRank Orchestrate, October 2026</strong> — a 24-hour hackathon
+                    where I built and deployed an AI agent. Placed <strong>#1802 out of 4,094</strong> participants.
+                </p>
+            </div>
+        </section>
+
+        <!-- ============ SKILLS ============ -->
+        <section id="skills" class="section">
+            <p class="section-label reveal">02 — SKILLS</p>
+            <h2 class="reveal">What I work with</h2>
+            <div class="skills-grid">
+                <div class="skill-group reveal">
+                    <h3>Languages</h3>
+                    <ul class="chips">
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>C++</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>Frameworks &amp; tools</h3>
+                    <ul class="chips">
+                        <li>Django</li>
+                        <li>React</li>
+                        <li>Vite</li>
+                        <li>REST APIs</li>
+                        <li>Git</li>
+                        <li>GitHub</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>Data &amp; deployment</h3>
+                    <ul class="chips">
+                        <li>PostgreSQL</li>
+                        <li>SQLite</li>
+                        <li>Supabase</li>
+                        <li>Render</li>
+                        <li>Docker basics</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>AI &amp; problem solving</h3>
+                    <ul class="chips">
+                        <li>Groq API</li>
+                        <li>Gemini API</li>
+                        <li>OpenRouter</li>
+                        <li>AI agents &amp; tool calling</li>
+                        <li>Data Structures &amp; Algorithms</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROJECTS ============ -->
+        <section id="projects" class="section">
+            <p class="section-label reveal">03 — PROJECTS</p>
+            <h2 class="reveal">Things I've built</h2>
+
+            <div class="project-grid">
+                <article class="project-card reveal">
+                    <div class="project-media project-media--mono" aria-hidden="true">HS</div>
+                    <div class="project-body">
+                        <p class="project-tags"><span class="live-badge">● LIVE</span> FLAGSHIP</p>
+                        <h3>HireSense AI</h3>
+                        <p>
+                            An interview-prep platform for candidates — I'm the user myself, so I built
+                            what I wanted: upload a resume and get an ATS score with a check-by-check
+                            breakdown, match it against a job description with real evidence quotes,
+                            practise mock interviews, and track applications. One rule I kept strict:
+                            every score comes from fixed rules, AI never computes a number.
+                        </p>
+                        <ul class="chips chips-small">
+                            <li>Django</li><li>React</li><li>PostgreSQL</li><li>Groq / Gemini</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://hiresense-ai-s8ih.onrender.com" target="_blank" rel="noopener">Live demo (demo / demo1234)</a>
+                            <a href="https://github.com/pawanriko/hiresense-ai" target="_blank" rel="noopener">Code</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="images/kai.png" alt="Screenshot of the KAI assistant interface" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tags"><span class="live-badge">● LIVE</span> FLAGSHIP</p>
+                        <h3>Kai-AI</h3>
+                        <p>
+                            My personal AI assistant, rebuilt as a full-stack app. It chats through
+                            five AI providers (Groq, OpenRouter, NVIDIA, DeepSeek, Gemini), remembers
+                            facts about me in a database, has an agent mode that uses tools, and a
+                            coding mode that edits files inside a locked-down sandbox. The first
+                            version was a single HTML file — this is the real one.
+                        </p>
+                        <ul class="chips chips-small">
+                            <li>Django</li><li>React</li><li>SQLite → Postgres</li><li>Multi-provider AI</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://kai-ai.antideploy.app" target="_blank" rel="noopener">Live demo</a>
+                            <a href="https://github.com/pawanriko/Kai-AI" target="_blank" rel="noopener">Code</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="images/dsa.png" alt="Screenshot of the DSA Visualizer" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tags">LEARNING PROJECT</p>
+                        <h3>DSA Visualizer</h3>
+                        <p>
+                            A web tool that shows data structures and algorithms moving step by step —
+                            sorting, searching, traversal. Reading about an algorithm is one thing;
+                            watching it happen is how it actually clicked for me.
+                        </p>
+                        <ul class="chips chips-small">
+                            <li>HTML</li><li>CSS</li><li>JavaScript</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/pawanriko/mini-project/tree/main/DSA%20Visualizer" target="_blank" rel="noopener">Code</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="images/sms.png" alt="Screenshot of the Student Management System running in a console" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tags">LEARNING PROJECT</p>
+                        <h3>Student Management System</h3>
+                        <p>
+                            A C++ console app for managing student records — add, update, search and
+                            delete — with records saved to a file so they survive between runs.
+                            Small, but it taught me file handling properly.
+                        </p>
+                        <ul class="chips chips-small">
+                            <li>C++</li><li>File handling</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/pawanriko/mini-project/tree/main/Student%20Management%20System" target="_blank" rel="noopener">Code</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <p class="more-code reveal">
+                More experiments and my learning repos are on
+                <a href="https://github.com/pawanriko" target="_blank" rel="noopener">github.com/pawanriko</a> —
+                including <a href="https://github.com/pawanriko/KAI" target="_blank" rel="noopener">KAI v1</a>,
+                the single-file assistant Kai-AI grew out of.
+            </p>
+        </section>
+
+        <!-- ============ EDUCATION ============ -->
+        <section id="education" class="section">
+            <p class="section-label reveal">04 — EDUCATION</p>
+            <h2 class="reveal">Education</h2>
+            <article class="edu-card reveal">
+                <div>
+                    <h3>Bachelor of Computer Applications (BCA)</h3>
+                    <p class="edu-place">IITM Janakpuri, New Delhi — currently in 3rd semester</p>
+                </div>
+                <p class="edu-focus">
+                    Focused on programming, web development, data structures and computer
+                    science fundamentals — and on building real projects alongside the degree.
+                </p>
+            </article>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section id="contact" class="section contact">
+            <p class="section-label reveal">05 — CONTACT</p>
+            <h2 class="reveal">Let's talk</h2>
+            <p class="contact-line reveal">
+                I'm looking for internships and interesting projects. The fastest way to
+                reach me is email — I reply.
+            </p>
+            <a class="btn btn-solid reveal" href="mailto:pawanriko@gmail.com">pawanriko@gmail.com</a>
+            <ul class="socials reveal">
+                <li><a href="https://github.com/pawanriko" target="_blank" rel="noopener">GitHub — pawanriko</a></li>
+                <li><a href="https://www.linkedin.com/in/pawanriko/" target="_blank" rel="noopener">LinkedIn — pawanriko</a></li>
+                <li><a href="https://leetcode.com/u/pawanriko/" target="_blank" rel="noopener">LeetCode — pawanriko</a></li>
+                <li><a href="https://www.hackerrank.com/profile/zecxoff" target="_blank" rel="noopener">HackerRank — zecxoff</a></li>
             </ul>
-
         </section>
-        <div class="project-grid"></div>
-        <section id="projects">
-            <h2>Projects</h2>
-            <article>
-                <h3>KAI AI</h3>
-                <p>
-                    An AI-powered personal study mentor and productivity assistant that helps students learn programming, create structured study plans, track progress, explain coding concepts, and provide personalized guidance throughout their learning journey.
-                </p>
-                <img src="images/kai.png" alt="KAI AI">
-                <p class="tech">
-
-                <span>HTML</span>
-
-                <span>CSS</span>
-
-                <span>JavaScript</span>
-
-                <span>AI APIs</span>
-
-                </p>
-                <a href="https://github.com/pawanriko/KAI" target="_blank">
-                    View Project
-                </a>
-            </article>
-            <article>
-
-    <h3>DSA Visualizer</h3>
-
-    <p>
-        An interactive web application designed to visualize Data Structures and
-        Algorithms. It helps users understand how algorithms work through
-        real-time animations of operations like sorting, searching, graph
-        traversal, and pathfinding.
-    </p>
-    <img src="images/dsa.png" alt="DSA Visualizer" height="400" width="600">
-    
-    <p class="tech">
-
-    <span>HTML</span>
-
-    <span>CSS</span>
-
-    <span>JavaScript</span>
-
-    </p>
-
-    <a href="https://github.com/pawanriko/mini-project/tree/main/DSA%20Visualizer" target="_blank">
-                    View Project
-    </a>
-    <p>
-                   
-    </p>
-
-    
-
-</article>
-            <article>
-                <h3>Student Management System</h3>
-                <p>
-                    A console-based application developed in C++ for managing student records, including adding,
-                    updating, searching, and deleting student information.
-                </p>
-                <img src="images/sms.png" alt="Student Management System">
-                <p class="tech">
-
-<span>C++</span>
-
-</p>
-                <a href="https://github.com/pawanriko/mini-project/tree/main/Student%20Management%20System" target="_blank">
-                    View Project
-                </a>
-            </article>
-
-        </section>
-
-
-        <section id="education">
-            <h2>Education</h2>
-            
-            <article>
-                <h3>Bachelor of Computer Applications</h3>
-                <p>Currently pursuing BCA </p>
-                <p>Focused on Programming, Web Development, and Computer Science Fundamentals.</p>
-            </article>
-
-        </section>
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <p>Email: 
-                <a href="mailto:pawanriko@gmail.com">
-                    pawanriko@gmail.com
-                </a>
-            </p>
-            <p>Github: 
-                <a href="https://github.com/pawanriko" target="_blank">
-                    github.com/pawanriko
-                </a>
-            </p>
-            <p>LinkedIn:
-                <a href="https://www.linkedin.com/in/pawan-kumar-795497315" target="_blank">
-                    linkedin.com/in/pawan-kumar-795497315
-                </a>
-                </a>
-        </section>
-
-
     </main>
-    <footer>
-        <p>Copyright © 2026 Pawan kumar. All Rights Reserved.</p>
 
-
+    <footer class="site-footer">
+        <p>© <span id="year">2026</span> Pawan Kumar. All rights reserved.</p>
+        <p class="footer-note">Built with plain HTML, CSS &amp; JavaScript — no framework, no template.</p>
     </footer>
 
+    <script src="js/script.js"></script>
 </body>
-
 </html>
