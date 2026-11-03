@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,27 @@
     <meta property="og:title" content="Pawan Kumar — Full-Stack Developer (Django + React)">
     <meta property="og:description" content="BCA student building web apps and AI tools. Creator of HireSense AI and Kai-AI.">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#f5f4f0">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial, sans-serif' font-size='36' font-weight='900' fill='%23f5f4f0' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial, sans-serif' font-size='36' font-weight='900' fill='%23f5f4f0' text-anchor='middle'%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="is-loading">
     <a class="skip-link" href="#work">Skip to content</a>
+
+    <!-- ============ LOADER 0 → 100 ============ -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="loader-frame loader-frame--top"></div>
+        <div class="loader-frame loader-frame--bottom"></div>
+        <div class="loader-inner">
+            <p class="loader-kicker">Pawan Kumar — Portfolio</p>
+            <p class="loader-count"><span id="loaderCount">0</span><span class="loader-pct">%</span></p>
+            <div class="loader-bar"><span class="loader-bar-fill" id="loaderBar"></span></div>
+            <p class="loader-status" id="loaderStatus">LOADING REEL</p>
+        </div>
+    </div>
 
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
@@ -56,23 +68,49 @@
     </div>
 
     <main id="top">
-        <!-- ============ HERO ============ -->
-        <section class="hero">
-            <div class="hero-photo reveal" id="heroPhoto">
-                <img class="hero-img-bw" src="images/hero-bw.jpg" alt="Pawan Kumar — portrait" width="1200" height="1200">
-                <img class="hero-img-color" src="images/hero-color.jpg" alt="" aria-hidden="true" width="1200" height="1200">
+        <!-- ============ HERO — THE FILM ============ -->
+        <section class="hero" id="hero" aria-label="Introduction">
+            <div class="hero-media">
+                <img class="hero-img" id="heroImg" src="images/hero-suit.jpg" alt="Pawan Kumar — black and white portrait in a suit" width="1254" height="1254">
+                <div class="hero-grade"></div>
+                <div class="hero-grain"></div>
+                <div class="hero-bar hero-bar--top"></div>
+                <div class="hero-bar hero-bar--bottom"></div>
             </div>
-            <h1 class="hero-statement reveal">
+
+            <div class="hero-ui">
+                <p class="hero-kicker">
+                    <span class="hero-rec">● REC</span>
+                    <span>SCENE 01 — THE DEVELOPER</span>
+                    <span class="hero-ui-right">NEW DELHI, IN</span>
+                </p>
+
+                <h1 class="hero-name" aria-label="Pawan Kumar">
+                    <span class="hero-line"><span class="hero-line-inner">PAWAN</span></span>
+                    <span class="hero-line"><span class="hero-line-inner">KUMAR<span class="reg">®</span></span></span>
+                </h1>
+
+                <div class="hero-bottom">
+                    <p class="hero-role">FULL-STACK DEVELOPER — DJANGO × REACT × AI</p>
+                    <p class="hero-scroll">SCROLL <span class="hero-scroll-arrow">↓</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ STATEMENT ============ -->
+        <section class="statement-sec" aria-label="Statement">
+            <p class="statement-kicker reveal">( THE STATEMENT )</p>
+            <h2 class="statement reveal">
                 Pawan builds full-stack web apps, AI products, and agents.
                 All of it shipped, tested, and live.
-            </h1>
-            <div class="hero-meta reveal">
+            </h2>
+            <div class="statement-meta reveal">
                 <p class="meta-item"><span>Based in</span> New Delhi, India</p>
                 <p class="meta-item"><span>Currently</span> BCA, 3rd semester — IITM Janakpuri</p>
                 <p class="meta-item"><span>Stack</span> Django · React · Python</p>
                 <p class="meta-item"><span>Status</span> Open to internships</p>
             </div>
-            <div class="hero-buttons reveal">
+            <div class="statement-buttons reveal">
                 <a class="btn btn-solid" href="#work">See the work</a>
                 <a class="btn btn-ghost" href="#contact">Get in touch ↓</a>
             </div>
@@ -113,75 +151,95 @@
             </div>
         </section>
 
-        <!-- ============ PROJECT DETAILS ============ -->
-        <section class="section" aria-label="Project details">
-            <article class="feature reveal">
-                <div class="feature-media">
-                    <img src="images/cover-hiresense.jpg" alt="Illustrated cover for HireSense AI: a resume with a score ring and checkmarks" loading="lazy">
+        <!-- ============ PROJECTS — HORIZONTAL REEL ============ -->
+        <section class="projects" id="projects" aria-label="Projects">
+            <div class="projects-pin" id="projectsPin">
+                <div class="projects-head">
+                    <h2>The projects</h2>
+                    <p class="section-note">Keep scrolling — the reel moves sideways →</p>
                 </div>
-                <div class="feature-body">
-                    <p class="feature-index">( 001 ) — Flagship</p>
-                    <h3>HireSense AI</h3>
-                    <p>
-                        An interview-prep platform for candidates — I'm the user myself, so I built
-                        what I wanted: upload a resume and get an ATS score with a check-by-check
-                        breakdown, match it against a job description with verbatim evidence quotes,
-                        practise mock interviews, and track applications. One rule I kept strict:
-                        every score comes from fixed rules. AI never computes a number.
-                    </p>
-                    <ul class="chips">
-                        <li>Django</li><li>React</li><li>PostgreSQL</li><li>Groq / Gemini</li><li>178 tests</li>
-                    </ul>
-                    <div class="feature-links">
-                        <a href="https://hiresense-ai-s8ih.onrender.com" target="_blank" rel="noopener">Live demo (demo / demo1234) ↗</a>
-                        <a href="https://github.com/pawanriko/hiresense-ai" target="_blank" rel="noopener">Code ↗</a>
-                    </div>
-                </div>
-            </article>
+                <div class="projects-viewport">
+                    <div class="projects-track" id="projectsTrack">
+                        <article class="pcard">
+                            <div class="pcard-media">
+                                <img src="images/cover-hiresense.jpg" alt="Illustrated cover for HireSense AI: a resume with a score ring and checkmarks" loading="lazy">
+                                <span class="pcard-num">( 001 )</span>
+                            </div>
+                            <div class="pcard-body">
+                                <h3>HireSense AI</h3>
+                                <p>An interview-prep platform for candidates — I'm the user myself, so I built what I wanted: upload a resume and get an ATS score with a check-by-check breakdown, match it against a job description with verbatim evidence quotes, practise mock interviews, and track applications. One rule I kept strict: every score comes from fixed rules. AI never computes a number.</p>
+                                <ul class="chips">
+                                    <li>Django</li><li>React</li><li>PostgreSQL</li><li>Groq / Gemini</li><li>178 tests</li>
+                                </ul>
+                                <div class="feature-links">
+                                    <a href="https://hiresense-ai-s8ih.onrender.com" target="_blank" rel="noopener">Live demo (demo / demo1234) ↗</a>
+                                    <a href="https://github.com/pawanriko/hiresense-ai" target="_blank" rel="noopener">Code ↗</a>
+                                </div>
+                            </div>
+                        </article>
 
-            <article class="feature feature--flip reveal">
-                <div class="feature-media">
-                    <img src="images/cover-kai.jpg" alt="Illustrated cover for Kai-AI: a glowing assistant tile with chat bubbles orbiting it" loading="lazy">
-                </div>
-                <div class="feature-body">
-                    <p class="feature-index">( 002 ) — Flagship</p>
-                    <h3>Kai-AI</h3>
-                    <p>
-                        My personal AI assistant, rebuilt as a full-stack app. It chats through five
-                        AI providers (Groq, OpenRouter, NVIDIA, DeepSeek, Gemini), remembers facts
-                        about me in a database, has an agent mode that uses tools, and a coding mode
-                        that edits files inside a locked-down sandbox. The first version was a single
-                        HTML file — this is the real one.
-                    </p>
-                    <ul class="chips">
-                        <li>Django</li><li>React</li><li>SQLite → Postgres</li><li>Multi-provider AI</li>
-                    </ul>
-                    <div class="feature-links">
-                        <a href="https://kai-ai.antideploy.app" target="_blank" rel="noopener">Live demo ↗</a>
-                        <a href="https://github.com/pawanriko/Kai-AI" target="_blank" rel="noopener">Code ↗</a>
-                    </div>
-                </div>
-            </article>
+                        <article class="pcard">
+                            <div class="pcard-media">
+                                <img src="images/cover-kai.jpg" alt="Illustrated cover for Kai-AI: a glowing assistant tile with chat bubbles orbiting it" loading="lazy">
+                                <span class="pcard-num">( 002 )</span>
+                            </div>
+                            <div class="pcard-body">
+                                <h3>Kai-AI</h3>
+                                <p>My personal AI assistant, rebuilt as a full-stack app. It chats through five AI providers (Groq, OpenRouter, NVIDIA, DeepSeek, Gemini), remembers facts about me in a database, has an agent mode that uses tools, and a coding mode that edits files inside a locked-down sandbox. The first version was a single HTML file — this is the real one.</p>
+                                <ul class="chips">
+                                    <li>Django</li><li>React</li><li>SQLite → Postgres</li><li>Multi-provider AI</li>
+                                </ul>
+                                <div class="feature-links">
+                                    <a href="https://kai-ai.antideploy.app" target="_blank" rel="noopener">Live demo ↗</a>
+                                    <a href="https://github.com/pawanriko/Kai-AI" target="_blank" rel="noopener">Code ↗</a>
+                                </div>
+                            </div>
+                        </article>
 
-            <div class="mini-row">
-                <article class="mini reveal">
-                    <img src="images/cover-dsa.jpg" alt="Illustrated cover for the DSA Visualizer: sorting bars and a graph" loading="lazy">
-                    <p class="feature-index">( 003 )</p>
-                    <h3>DSA Visualizer</h3>
-                    <p>Shows data structures and algorithms moving step by step. Watching it happen is how it actually clicked for me.</p>
-                    <div class="feature-links">
-                        <a href="https://github.com/pawanriko/mini-project/tree/main/DSA%20Visualizer" target="_blank" rel="noopener">Code ↗</a>
+                        <article class="pcard">
+                            <div class="pcard-media">
+                                <img src="images/cover-dsa.jpg" alt="Illustrated cover for the DSA Visualizer: sorting bars and a graph" loading="lazy">
+                                <span class="pcard-num">( 003 )</span>
+                            </div>
+                            <div class="pcard-body">
+                                <h3>DSA Visualizer</h3>
+                                <p>Shows data structures and algorithms moving step by step. Watching it happen is how it actually clicked for me.</p>
+                                <ul class="chips">
+                                    <li>JavaScript</li><li>Algorithms</li><li>Step-by-step</li>
+                                </ul>
+                                <div class="feature-links">
+                                    <a href="https://github.com/pawanriko/mini-project/tree/main/DSA%20Visualizer" target="_blank" rel="noopener">Code ↗</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="pcard">
+                            <div class="pcard-media">
+                                <img src="images/cover-sms.jpg" alt="Illustrated cover for the Student Management System: record cards and a table under a magnifier" loading="lazy">
+                                <span class="pcard-num">( 004 )</span>
+                            </div>
+                            <div class="pcard-body">
+                                <h3>Student Management System</h3>
+                                <p>A C++ console app for student records, saved to a file so they survive between runs. It taught me file handling properly.</p>
+                                <ul class="chips">
+                                    <li>C++</li><li>File handling</li><li>Console app</li>
+                                </ul>
+                                <div class="feature-links">
+                                    <a href="https://github.com/pawanriko/mini-project/tree/main/Student%20Management%20System" target="_blank" rel="noopener">Code ↗</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <div class="pcard pcard--end">
+                            <p class="pcard-end-big">More<br>coming.</p>
+                            <p class="pcard-end-note">Everything ships to GitHub first.</p>
+                            <div class="feature-links">
+                                <a href="https://github.com/pawanriko" target="_blank" rel="noopener">github.com/pawanriko ↗</a>
+                            </div>
+                        </div>
                     </div>
-                </article>
-                <article class="mini reveal">
-                    <img src="images/cover-sms.jpg" alt="Illustrated cover for the Student Management System: record cards and a table under a magnifier" loading="lazy">
-                    <p class="feature-index">( 004 )</p>
-                    <h3>Student Management System</h3>
-                    <p>A C++ console app for student records, saved to a file so they survive between runs. It taught me file handling properly.</p>
-                    <div class="feature-links">
-                        <a href="https://github.com/pawanriko/mini-project/tree/main/Student%20Management%20System" target="_blank" rel="noopener">Code ↗</a>
-                    </div>
-                </article>
+                </div>
+                <div class="projects-progress"><span class="projects-progress-fill" id="projectsProgress"></span></div>
             </div>
         </section>
 
