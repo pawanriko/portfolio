@@ -400,17 +400,23 @@ main {
     display: grid;
     grid-template-columns: 340px 1fr;
     gap: 3.5rem;
-    align-items: start;
+    align-items: center;
     border-top: 1px solid var(--line);
     padding-top: 2.6rem;
 }
 
 .hero-photo img {
-    width: 100%;
+    display: block;
+    width: 92%;
+    margin-inline: auto;
     aspect-ratio: 4 / 4.6;
     object-fit: cover;
     object-position: 50% 12%;
-    background: #f5f4f0;
+}
+
+/* No box behind the portrait: in dark mode the black dots flip to white */
+[data-theme="dark"] .hero-photo img {
+    filter: invert(1);
 }
 
 .hero-meta {
@@ -882,15 +888,7 @@ main {
     .hero-row {
         grid-template-columns: minmax(0, 42%) 1fr;
         gap: 2rem;
-        align-items: stretch;
-    }
-
-    .hero-photo img {
-        height: 100%;
-    }
-
-    .hero-meta {
-        align-content: space-between;
+        align-items: center;
     }
 
     .feature {
