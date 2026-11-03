@@ -152,6 +152,33 @@
         year.textContent = String(new Date().getFullYear());
     }
 
+    /* ---------- hero portrait: colour reveals in a circle at the cursor ---------- */
+    var heroPhoto = document.getElementById("heroPhoto");
+
+    if (heroPhoto && !reducedMotion) {
+        var colorImg = heroPhoto.querySelector(".hero-img-color");
+
+        if (colorImg) {
+            var REVEAL_R = 130;
+
+            heroPhoto.addEventListener("pointermove", function (e) {
+                var rect = heroPhoto.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                var clip = "circle(" + REVEAL_R + "px at " + x + "px " + y + "px)";
+                colorImg.style.clipPath = clip;
+                colorImg.style.webkitClipPath = clip;
+            });
+
+            heroPhoto.addEventListener("pointerleave", function () {
+                var rect = heroPhoto.getBoundingClientRect();
+                var clip = "circle(0px at " + (rect.width / 2) + "px " + (rect.height / 2) + "px)";
+                colorImg.style.clipPath = clip;
+                colorImg.style.webkitClipPath = clip;
+            });
+        }
+    }
+
     /* ---------- cursor follower: dot + black/white circle + soft shadow ---------- */
     var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
