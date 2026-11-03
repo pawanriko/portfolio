@@ -37,6 +37,12 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+}
+
+::selection {
+    background: var(--ink);
+    color: var(--bg);
 }
 
 body {
@@ -44,6 +50,9 @@ body {
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
+    overflow-x: clip;
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted) var(--bg);
     transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -525,6 +534,24 @@ body.loaded .hero-img {
     to   { opacity: 1; transform: scale(1.14); }
 }
 
+/* slow projector light sweep across the frame */
+.hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(112deg, transparent 42%, rgba(255, 255, 255, 0.085) 50%, transparent 58%);
+    background-size: 280% 100%;
+    background-position: 130% 0;
+    animation: lightSweep 9s var(--ease-cine) infinite;
+}
+
+@keyframes lightSweep {
+    0%, 55% { background-position: 130% 0; }
+    88%, 100% { background-position: -40% 0; }
+}
+
 /* cinematic colour grade: deep bottom, soft top light, vignette */
 .hero-grade {
     position: absolute;
@@ -764,6 +791,56 @@ body.loaded .hero-bottom {
     color: var(--bg);
 }
 
+/* ---------- marquee ---------- */
+
+.marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 1.6rem 0;
+    margin-top: 6.5rem;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeMove 30s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+.marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 2.6rem;
+    padding-right: 2.6rem;
+    font-family: "Archivo", Arial, sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 4.6vw, 3.6rem);
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.mq-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+}
+
+.mq-dot {
+    font-size: 0.42em;
+    color: var(--muted);
+    -webkit-text-stroke: 0;
+}
+
+@keyframes marqueeMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
 /* ---------- work index list ---------- */
 
 .work-list {
@@ -771,6 +848,7 @@ body.loaded .hero-bottom {
 }
 
 .work-item {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr auto auto 2rem;
     align-items: baseline;
@@ -778,12 +856,27 @@ body.loaded .hero-bottom {
     padding: 1.7rem 0.4rem;
     border-bottom: 1px solid var(--line);
     text-decoration: none;
-    transition: padding-left 0.25s var(--ease-out), background 0.25s ease;
+    transition: padding-left 0.25s var(--ease-out);
+}
+
+/* ink sweep washes across the row on hover */
+.work-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--surface);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-cine);
+    z-index: -1;
 }
 
 .work-item:hover {
     padding-left: 1.2rem;
-    background: var(--surface);
+}
+
+.work-item:hover::before {
+    transform: scaleX(1);
 }
 
 .work-item h3 {
@@ -865,6 +958,8 @@ body.loaded .hero-bottom {
     flex-shrink: 0;
     background: var(--surface);
     border: 1px solid var(--line);
+    border-radius: 26px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: transform 0.5s var(--ease-out), border-color 0.3s ease;
@@ -884,11 +979,13 @@ body.loaded .hero-bottom {
     width: 100%;
     height: 300px;
     object-fit: cover;
-    transition: transform 0.8s var(--ease-out);
+    filter: saturate(0.82) contrast(1.03);
+    transition: transform 0.8s var(--ease-out), filter 0.5s ease;
 }
 
 .pcard:hover .pcard-media img {
     transform: scale(1.05);
+    filter: saturate(1.05) contrast(1.03);
 }
 
 .pcard-num {
@@ -1460,6 +1557,15 @@ body.has-cursor .cursor-dot {
     }
 
     .hero-grain {
+        animation: none;
+    }
+
+    .hero-media::after {
+        animation: none;
+        display: none;
+    }
+
+    .marquee-track {
         animation: none;
     }
 
