@@ -151,6 +151,26 @@
         year.textContent = String(new Date().getFullYear());
     }
 
+    /* ---------- hero timecode: runs like a camera clock ---------- */
+    var timecode = document.getElementById("timecode");
+    if (timecode && !reducedMotion) {
+        var tcStart = Date.now();
+        window.setInterval(function () {
+            var elapsed = Date.now() - tcStart;
+            var totalSeconds = Math.floor(elapsed / 1000);
+            var frames = Math.floor((elapsed % 1000) / 1000 * 24);
+            var parts = [
+                Math.floor(totalSeconds / 3600),
+                Math.floor((totalSeconds % 3600) / 60),
+                totalSeconds % 60,
+                frames
+            ];
+            timecode.textContent = parts.map(function (n) {
+                return (n < 10 ? "0" : "") + n;
+            }).join(":");
+        }, 42);
+    }
+
     /* ---------- loader: 0 → 100, then the curtain lifts ---------- */
     var loader = document.getElementById("loader");
     var loaderCount = document.getElementById("loaderCount");
