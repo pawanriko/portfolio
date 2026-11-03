@@ -405,18 +405,27 @@ main {
     padding-top: 2.6rem;
 }
 
-.hero-photo img {
-    display: block;
-    width: 92%;
-    margin-inline: auto;
-    aspect-ratio: 4 / 4.6;
-    object-fit: cover;
-    object-position: 50% 12%;
+.hero-photo {
+    position: relative;
 }
 
-/* No box behind the portrait: in dark mode the black dots flip to white */
-[data-theme="dark"] .hero-photo img {
-    filter: invert(1);
+.hero-photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/* Colour layer sits on top of the B/W portrait; JS reveals a circle
+   of it around the cursor with clip-path. Hidden until hover. */
+.hero-img-color {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    pointer-events: none;
+    clip-path: circle(0px at 50% 50%);
+    -webkit-clip-path: circle(0px at 50% 50%);
+    transition: clip-path 0.18s ease-out, -webkit-clip-path 0.18s ease-out;
 }
 
 .hero-meta {
