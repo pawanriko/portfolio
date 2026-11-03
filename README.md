@@ -2,6 +2,8 @@
 
 This is my personal portfolio — one page with my skills, projects, education and contact details, plus a button to download my resume. I made it with plain HTML, CSS and JavaScript, no framework. It was one of my first proper web projects.
 
+**Live site:** [pawanriko.github.io/portfolio/portfolio/](https://pawanriko.github.io/portfolio/portfolio/)
+
 ## Preview
 
 ![Profile](portfolio/images/profile.jpeg)
