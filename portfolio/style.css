@@ -385,27 +385,29 @@ main {
 
 .hero {
     padding: 10.5rem 0 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "photo statement"
+        "photo meta"
+        "photo buttons";
+    column-gap: 3.5rem;
+    row-gap: 2.2rem;
+    align-items: start;
+    border-top: 1px solid var(--line);
 }
 
 .hero-statement {
+    grid-area: statement;
     font-size: clamp(2.5rem, 5.6vw, 5.3rem);
     font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.04;
     max-width: 20ch;
-    margin-bottom: 4.5rem;
-}
-
-.hero-row {
-    display: grid;
-    grid-template-columns: 340px 1fr;
-    gap: 3.5rem;
-    align-items: center;
-    border-top: 1px solid var(--line);
-    padding-top: 2.6rem;
 }
 
 .hero-photo {
+    grid-area: photo;
     position: relative;
 }
 
@@ -429,6 +431,7 @@ main {
 }
 
 .hero-meta {
+    grid-area: meta;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.6rem 3rem;
@@ -451,11 +454,11 @@ main {
 }
 
 .hero-buttons {
-    grid-column: 1 / -1;
+    grid-area: buttons;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 0.8rem;
+    align-self: end;
 }
 
 .btn {
@@ -894,10 +897,9 @@ main {
 /* ---------- responsive ---------- */
 
 @media (max-width: 1020px) {
-    .hero-row {
-        grid-template-columns: minmax(0, 42%) 1fr;
-        gap: 2rem;
-        align-items: center;
+    .hero {
+        column-gap: 2rem;
+        row-gap: 1.8rem;
     }
 
     .feature {
@@ -947,32 +949,28 @@ main {
 
     .hero {
         padding-top: 8rem;
-    }
-
-    .hero-row {
-        grid-template-columns: 44% 1fr;
-        gap: 1.1rem;
-        align-items: center;
+        grid-template-areas:
+            "statement statement"
+            "photo meta"
+            "buttons buttons";
+        column-gap: 1.1rem;
+        row-gap: 1.4rem;
     }
 
     .hero-photo {
-        max-width: none;
-    }
-
-    .hero-photo img {
-        height: auto;
+        align-self: center;
     }
 
     .hero-meta {
         display: flex;
         flex-direction: column;
         gap: 0.9rem;
+        align-self: center;
     }
 
     .hero-buttons {
         flex-direction: column;
         align-items: stretch;
-        margin-top: 0.3rem;
     }
 
     .hero-buttons .btn {
