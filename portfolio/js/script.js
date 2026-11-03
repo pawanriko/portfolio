@@ -1,13 +1,15 @@
-// Pawan Kumar — portfolio v4 scripts
-// Theme toggle, mobile menu, FAQ accordion, scroll reveal,
-// active nav highlighting, live Delhi clock.
+// Pawan Kumar — portfolio v6 "THE FILM" scripts
+// Loader 0→100, cinematic hero (ken-burns + scroll parallax),
+// horizontal project reel driven by vertical scroll,
+// theme toggle, overlay menu, FAQ, scroll reveal, Delhi clock.
 
 (function () {
     "use strict";
 
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    /* ---------- theme (light is the home theme) ---------- */
+    /* ---------- theme (dark is the home theme) ---------- */
     var root = document.documentElement;
 
     function savedTheme() {
@@ -18,7 +20,7 @@
         }
     }
 
-    root.setAttribute("data-theme", savedTheme() || "light");
+    root.setAttribute("data-theme", savedTheme() || "dark");
 
     var themeToggle = document.getElementById("themeToggle");
     if (themeToggle) {
@@ -54,12 +56,10 @@
             menuClose.addEventListener("click", function () { setMenu(false); });
         }
 
-        // Click the dimmed backdrop (outside the panel) to close.
         menuOverlay.addEventListener("click", function (event) {
             if (event.target === menuOverlay) { setMenu(false); }
         });
 
-        // Any menu link closes the menu before jumping to the section.
         menuOverlay.addEventListener("click", function (event) {
             if (event.target.closest(".menu-links a")) { setMenu(false); }
         });
@@ -78,7 +78,6 @@
         button.addEventListener("click", function () {
             var isOpen = item.classList.contains("open");
 
-            // Close everything else first — one answer open at a time.
             document.querySelectorAll(".faq.open").forEach(function (other) {
                 other.classList.remove("open");
                 other.querySelector(".faq-q").setAttribute("aria-expanded", "false");
@@ -152,36 +151,171 @@
         year.textContent = String(new Date().getFullYear());
     }
 
-    /* ---------- hero portrait: colour reveals in a circle at the cursor ---------- */
-    var heroPhoto = document.getElementById("heroPhoto");
+    /* ---------- loader: 0 → 100, then the curtain lifts ---------- */
+    var loader = document.getElementById("loader");
+    var loaderCount = document.getElementById("loaderCount");
+    var loaderBar = document.getElementById("loaderBar");
+    var loaderStatus = document.getElementById("loaderStatus");
 
-    if (heroPhoto && !reducedMotion) {
-        var colorImg = heroPhoto.querySelector(".hero-img-color");
-
-        if (colorImg) {
-            var REVEAL_R = 130;
-
-            heroPhoto.addEventListener("pointermove", function (e) {
-                var rect = heroPhoto.getBoundingClientRect();
-                var x = e.clientX - rect.left;
-                var y = e.clientY - rect.top;
-                var clip = "circle(" + REVEAL_R + "px at " + x + "px " + y + "px)";
-                colorImg.style.clipPath = clip;
-                colorImg.style.webkitClipPath = clip;
-            });
-
-            heroPhoto.addEventListener("pointerleave", function () {
-                var rect = heroPhoto.getBoundingClientRect();
-                var clip = "circle(0px at " + (rect.width / 2) + "px " + (rect.height / 2) + "px)";
-                colorImg.style.clipPath = clip;
-                colorImg.style.webkitClipPath = clip;
-            });
+    function finishLoading() {
+        document.body.classList.remove("is-loading");
+        document.body.classList.add("loaded");
+        if (loader) {
+            window.setTimeout(function () {
+                if (loader.parentNode) { loader.parentNode.removeChild(loader); }
+            }, 1100);
         }
     }
 
-    /* ---------- cursor follower: dot + black/white circle + soft shadow ---------- */
-    var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (loader && !reducedMotion) {
+        var statusWords = [
+            [0, "LOADING REEL"],
+            [34, "THREADING PROJECTOR"],
+            [67, "ROLLING CREDITS"],
+            [92, "FEATURE PRESENTATION"]
+        ];
+        var progress = 0;
+        var heroReady = false;
 
+        var heroPreload = new Image();
+        heroPreload.onload = function () { heroReady = true; };
+        heroPreload.onerror = function () { heroReady = true; };
+        heroPreload.src = "images/hero-suit.jpg";
+
+        var safety = window.setTimeout(function () { heroReady = true; }, 2600);
+
+        var loaderTimer = window.setInterval(function () {
+            var cap = heroReady ? 100 : 90;
+            var step = progress < 55 ? (2 + Math.random() * 4) : (0.8 + Math.random() * 2);
+            progress = Math.min(cap, progress + step);
+
+            if (loaderCount) { loaderCount.textContent = String(Math.floor(progress)); }
+            if (loaderBar) { loaderBar.style.width = progress + "%"; }
+            if (loaderStatus) {
+                for (var i = statusWords.length - 1; i >= 0; i--) {
+                    if (progress >= statusWords[i][0]) {
+                        loaderStatus.textContent = statusWords[i][1];
+                        break;
+                    }
+                }
+            }
+
+            if (progress >= 100) {
+                window.clearInterval(loaderTimer);
+                window.clearTimeout(safety);
+                if (loaderCount) { loaderCount.textContent = "100"; }
+                window.setTimeout(function () {
+                    loader.classList.add("done");
+                    finishLoading();
+                }, 320);
+            }
+        }, 46);
+    } else {
+        // Reduced motion (CSS hides the loader) or no loader element:
+        // show the hero settled, skip the whole sequence.
+        if (loader && loader.parentNode) { loader.parentNode.removeChild(loader); }
+        finishLoading();
+    }
+
+    /* ---------- hero: parallax push-in + letterbox widen on scroll ---------- */
+    var hero = document.getElementById("hero");
+    var heroImg = document.getElementById("heroImg");
+    var heroBars = document.querySelectorAll(".hero-bar");
+
+    if (hero && heroImg && !reducedMotion) {
+        var heroTicking = false;
+
+        function updateHero() {
+            heroTicking = false;
+            var vh = window.innerHeight;
+            var y = window.scrollY || window.pageYOffset;
+            if (y > vh * 1.2) { return; }
+            var p = Math.min(1, Math.max(0, y / vh)); // 0 at top → 1 one screen down
+
+            var start = window.getComputedStyle(heroImg).transform;
+            var baseScale = 1.14;
+            try {
+                var m = new DOMMatrixReadOnly(start);
+                if (m && m.a) { baseScale = m.a; }
+            } catch (e) { /* keep default */ }
+
+            var scale = baseScale + p * 0.12;
+            var translate = p * vh * 0.16;
+            heroImg.style.transform = "translateY(" + translate + "px) scale(" + scale + ")";
+
+            var barH = Math.max(0, 3.2 - p * 3.2); // vh units: bars shrink away
+            heroBars.forEach(function (bar) { bar.style.height = barH + "vh"; });
+        }
+
+        window.addEventListener("scroll", function () {
+            if (!heroTicking) {
+                heroTicking = true;
+                window.requestAnimationFrame(updateHero);
+            }
+        }, { passive: true });
+    }
+
+    /* ---------- projects: vertical scroll drives the reel sideways ---------- */
+    var projects = document.getElementById("projects");
+    var projectsPin = document.getElementById("projectsPin");
+    var projectsViewport = projects ? projects.querySelector(".projects-viewport") : null;
+    var projectsTrack = document.getElementById("projectsTrack");
+    var projectsProgress = document.getElementById("projectsProgress");
+
+    function railOverflow() {
+        if (!projectsViewport || !projectsTrack) { return 0; }
+        return Math.max(0, projectsTrack.scrollWidth - projectsViewport.clientWidth);
+    }
+
+    function setupRail() {
+        if (!projects || !projectsViewport || !projectsTrack) { return; }
+        var overflow = railOverflow();
+
+        if (reducedMotion || overflow <= 24) {
+            projects.classList.remove("is-pinned");
+            projectsViewport.classList.add("native-scroll");
+            projectsTrack.style.transform = "";
+            if (projectsProgress) { projectsProgress.style.width = "100%"; }
+            return;
+        }
+
+        projectsViewport.classList.remove("native-scroll");
+        projects.classList.add("is-pinned");
+        // Scroll distance: the sideways distance + most of a screen to travel it.
+        var distance = overflow + window.innerHeight * 0.9;
+        projects.style.setProperty("--projects-scroll", distance + "px");
+        updateRail();
+    }
+
+    function updateRail() {
+        if (!projects || !projects.classList.contains("is-pinned")) { return; }
+        var rect = projects.getBoundingClientRect();
+        var total = projects.offsetHeight - window.innerHeight;
+        if (total <= 0) { return; }
+        var p = Math.min(1, Math.max(0, -rect.top / total));
+        var overflow = railOverflow();
+        projectsTrack.style.transform = "translateX(" + (-overflow * p) + "px)";
+        if (projectsProgress) { projectsProgress.style.width = (p * 100) + "%"; }
+    }
+
+    if (projects) {
+        var railTicking = false;
+        window.addEventListener("scroll", function () {
+            if (!railTicking) {
+                railTicking = true;
+                window.requestAnimationFrame(function () {
+                    railTicking = false;
+                    updateRail();
+                });
+            }
+        }, { passive: true });
+
+        window.addEventListener("resize", setupRail);
+        window.addEventListener("load", setupRail);
+        setupRail();
+    }
+
+    /* ---------- cursor follower: dot + black/white circle + soft shadow ---------- */
     if (finePointer && !reducedMotion) {
         var shadow = document.createElement("div");
         shadow.className = "cursor-shadow";
@@ -193,9 +327,9 @@
         document.body.appendChild(ring);
         document.body.appendChild(dot);
 
-        var mx = -100, my = -100;          // mouse target
-        var rx = -100, ry = -100;          // ring position (lags)
-        var sx = -100, sy = -100;          // shadow position (lags more)
+        var mx = -100, my = -100;
+        var rx = -100, ry = -100;
+        var sx = -100, sy = -100;
         var shown = false;
 
         document.addEventListener("mousemove", function (e) {
