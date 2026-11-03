@@ -410,6 +410,7 @@ main {
     grid-area: photo;
     position: relative;
     min-height: 440px;
+    align-self: stretch;
 }
 
 /* The portrait fills the full height of the hero's left half;
