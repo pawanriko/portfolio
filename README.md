@@ -4,6 +4,8 @@ This is my personal portfolio — one page with my skills, projects, education a
 
 **Live site:** [pawanriko.github.io/portfolio/portfolio/](https://pawanriko.github.io/portfolio/portfolio/)
 
+**Resume:** [Pawan_Kumar_Resume.pdf](https://pawanriko.github.io/portfolio/portfolio/Pawan_Kumar_Resume.pdf) — my one-page resume; the site's Resume button downloads the same file.
+
 ## Preview
 
 ![Profile](portfolio/images/profile.jpeg)
