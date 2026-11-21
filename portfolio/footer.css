@@ -1,0 +1,322 @@
+.pawan-footer{
+        --pf-paper:#ffffff;
+        --pf-ink:#111111;
+        --pf-ink-soft:#3d3d3d;
+        --pf-ink-mute:#8a8a8a;
+        --pf-line:#e4e4e4;
+        --pf-pawan-fill:#ececec;
+        --pf-pawan-stroke:#d9d9d9;
+        --pf-btn-bg:#111111;
+        --pf-btn-fg:#ffffff;
+        --pf-sheet-bg:#ffffff;
+        --pf-field-bg:#f7f7f5;
+        --pf-field-line:#d8d8d8;
+        --pf-error:#b3261e;
+        --pf-radius:18px;
+      }.pawan-footer, .pawan-footer *{ box-sizing:border-box; }.pawan-footer{
+        margin:0;
+        background:var(--pf-paper);
+        color:var(--pf-ink);
+        font-family:"Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+        overflow:hidden;
+      }.pawan-footer button, .pawan-footer [role="button"], .pawan-footer input, .pawan-footer textarea{ min-height:2.25rem; }.pawan-footer button{ font-family:inherit; cursor:pointer; }/* ============ FOOTER STAGE ============ */
+.pawan-footer .stage{
+        position:relative;
+        height:clamp(520px, 82vh, 780px);
+        min-height:480px;
+        overflow:hidden;
+        background:var(--pf-paper);
+        isolation:isolate;
+      }/* --- headline placeholder (top text — wording to be confirmed) --- */
+.pawan-footer .headline{
+        position:absolute;
+        top:clamp(20px, 4.5vh, 44px);
+        left:0; right:0;
+        z-index:30;
+        text-align:center;
+        padding:0 20px;
+        pointer-events:none;
+      }.pawan-footer .headline .main-line{
+        display:block;
+        font-size:clamp(1.9rem, 4.6vw, 3.2rem);
+        font-weight:600;
+        letter-spacing:-.01em;
+        color:var(--pf-ink);
+      }/* --- giant PAWAN behind everything --- */
+.pawan-footer .pawan{
+        position:absolute;
+        left:50%;
+        top:46%;
+        transform:translate(-50%,-50%);
+        z-index:1;
+        font-family:"Anton", "Archivo", sans-serif;
+        font-size:clamp(120px, 27vw, 430px);
+        line-height:1;
+        letter-spacing:.04em;
+        white-space:nowrap;
+        color:var(--pf-pawan-fill);
+        -webkit-text-stroke:2px var(--pf-pawan-stroke);
+        user-select:none;
+        pointer-events:none;
+      }/* --- crowd: individual animated walkers (like the reference) ---
+         Every person is their own character — different outfit, hat,
+         bag and build — with swinging legs and arms and a walking bob.
+         Nobody is locked to a strip: each walker crosses at their own
+         speed, so the crowd overtakes, bunches and thins naturally.
+         Three depths: far + back rows drift left → right behind Pawan,
+         the front row walks right → left in front of him. */
+.pawan-footer .crowd-layer{
+        position:absolute;
+        inset:0;
+        overflow:hidden;
+        pointer-events:none;
+        /* soften figures as they enter / leave at the edges */
+        -webkit-mask-image:linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+        mask-image:linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+      }.pawan-footer .layer-far{ z-index:2; }.pawan-footer .layer-back{ z-index:3; }.pawan-footer .layer-front{ z-index:10; }.pawan-footer .walker{
+        position:absolute;
+        left:0;
+        will-change:transform;
+        animation:across-r var(--dur,60s) linear infinite;
+        animation-delay:var(--delay,0s);
+      }.pawan-footer .walker.dir-l{ animation-name:across-l; }
+      @keyframes across-r{
+        from{ transform:translateX(-16vw); }
+        to  { transform:translateX(114vw); }
+      }
+      @keyframes across-l{
+        from{ transform:translateX(114vw); }
+        to  { transform:translateX(-16vw); }
+      }/* walking bob — two soft dips per full stride cycle, timed
+         with the legs so the body settles as each foot lands */
+.pawan-footer .walker-bob{
+        height:100%;
+        animation:bob-cycle var(--cycle,1.24s) ease-in-out infinite;
+      }
+      @keyframes bob-cycle{
+        0%  { transform:translateY(0) rotate(0deg); }
+        25% { transform:translateY(-2.7%) rotate(.45deg); }
+        50% { transform:translateY(-.5%) rotate(0deg); }
+        75% { transform:translateY(-2.7%) rotate(-.45deg); }
+        100%{ transform:translateY(0) rotate(0deg); }
+      }.pawan-footer .walker svg{
+        display:block;
+        height:100%;
+        width:auto;
+        overflow:visible;
+      }.pawan-footer .walker .flip svg{ transform:scaleX(-1); }/* gait — two-segment legs and arms, both arms pivoting from
+         one shared shoulder point and both legs from one hip point.
+         Thighs swing in opposite phases, each knee bends as its leg
+         swings through, and each arm swings against the leg on its
+         own side — the counter-swing of a real walk. Every part
+         shares one full-cycle duration so nothing drifts apart. */
+.pawan-footer .walker svg .lg-a, .pawan-footer .walker svg .lg-b, .pawan-footer .walker svg .sn-a, .pawan-footer .walker svg .sn-b, .pawan-footer .walker svg .ar-a, .pawan-footer .walker svg .ar-b, .pawan-footer .walker svg .fo-a, .pawan-footer .walker svg .fo-b, .pawan-footer .walker svg .hd{ transform-box:view-box; }.pawan-footer .walker svg .lg-a{ transform-origin:38px 78px; animation:thigh-a var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .lg-b{ transform-origin:38px 78px; animation:thigh-b var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .sn-a{ transform-origin:39px 101px; animation:shin-a var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .sn-b{ transform-origin:39px 101px; animation:shin-b var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .ar-a{ transform-origin:38px 46px; animation:arm-a var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .ar-b{ transform-origin:38px 46px; animation:arm-b var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .fo-a{ transform-origin:35px 61px; animation:fore-a var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .fo-b{ transform-origin:42px 61px; animation:fore-b var(--cycle,1.24s) ease-in-out infinite; }.pawan-footer .walker svg .hd{ transform-origin:38px 36px; animation:head-sway var(--cycle,1.24s) ease-in-out infinite; }
+      @keyframes thigh-a{ 0%{ transform:rotate(-21deg); } 32%{ transform:rotate(7deg); } 50%{ transform:rotate(19deg); } 78%{ transform:rotate(-4deg); } 100%{ transform:rotate(-21deg); } }
+      @keyframes thigh-b{ 0%{ transform:rotate(19deg); } 28%{ transform:rotate(-4deg); } 50%{ transform:rotate(-21deg); } 82%{ transform:rotate(7deg); } 100%{ transform:rotate(19deg); } }
+      @keyframes shin-a{ 0%{ transform:rotate(5deg); } 48%{ transform:rotate(3deg); } 68%{ transform:rotate(36deg); } 86%{ transform:rotate(9deg); } 100%{ transform:rotate(5deg); } }
+      @keyframes shin-b{ 0%{ transform:rotate(6deg); } 22%{ transform:rotate(36deg); } 42%{ transform:rotate(8deg); } 55%{ transform:rotate(4deg); } 100%{ transform:rotate(6deg); } }
+      @keyframes arm-a{ 0%{ transform:rotate(-13deg); } 50%{ transform:rotate(13deg); } 100%{ transform:rotate(-13deg); } }
+      @keyframes arm-b{ 0%{ transform:rotate(13deg); } 50%{ transform:rotate(-13deg); } 100%{ transform:rotate(13deg); } }
+      @keyframes fore-a{ 0%{ transform:rotate(3deg); } 50%{ transform:rotate(-7deg); } 100%{ transform:rotate(3deg); } }
+      @keyframes fore-b{ 0%{ transform:rotate(-7deg); } 50%{ transform:rotate(3deg); } 100%{ transform:rotate(-7deg); } }
+      @keyframes head-sway{ 0%{ transform:rotate(-1.6deg); } 50%{ transform:rotate(1.6deg); } 100%{ transform:rotate(-1.6deg); } }/* --- hero: Pawan, centre — the original black-and-white ink
+         sketch of him standing in a suit and tie --- */
+.pawan-footer .hero-wrap{
+        position:absolute;
+        left:50%;
+        bottom:0;
+        transform:translateX(-50%);
+        z-index:5;
+        height:min(79%, 770px);
+        aspect-ratio:1184 / 2096;
+        pointer-events:none;
+        user-select:none;
+        filter:drop-shadow(0 10px 14px rgba(0,0,0,.10));
+      }.pawan-footer .pf-hero-img{
+        display:block;
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        /* gentle breathing sway so Pawan feels alive, not pasted on */
+        transform-origin:50% 100%;
+        animation:hero-sway 7s ease-in-out infinite alternate;
+      }
+      @keyframes hero-sway{
+        from{ transform:rotate(-.35deg) translateY(0); }
+        to  { transform:rotate(.35deg) translateY(-4px); }
+      }/* ground line the crowd walks on */
+.pawan-footer .ground{
+        position:absolute;
+        left:0; right:0; bottom:0;
+        height:2px;
+        background:linear-gradient(90deg, transparent, #cfcfcf 18%, #cfcfcf 82%, transparent);
+        z-index:11;
+        pointer-events:none;
+      }/* film grain */
+.pawan-footer .grain{
+        position:absolute; inset:0;
+        z-index:20;
+        pointer-events:none;
+        opacity:.05;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      }/* bottom-left credit line */
+.pawan-footer .credit{
+        position:absolute;
+        left:18px; bottom:14px;
+        z-index:25;
+        font-size:.72rem;
+        letter-spacing:.18em;
+        text-transform:uppercase;
+        color:var(--pf-ink-mute);
+        pointer-events:none;
+      }/* ============ FLOATING CONTACT BUTTON ============ */
+.pawan-footer .float-btn{
+        position:fixed;
+        right:clamp(16px, 3vw, 32px);
+        bottom:clamp(18px, 4vh, 34px);
+        z-index:60;
+        display:inline-flex;
+        align-items:center;
+        gap:.55em;
+        border:none;
+        border-radius:999px;
+        background:var(--pf-btn-bg);
+        color:var(--pf-btn-fg);
+        font-size:1rem;
+        font-weight:700;
+        letter-spacing:.02em;
+        padding:.95em 1.6em;
+        min-height:52px;
+        box-shadow:0 14px 34px rgba(0,0,0,.28), 0 3px 8px rgba(0,0,0,.18);
+        transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+      }.pawan-footer .float-btn:hover{ background:#000; transform:translateY(-3px); box-shadow:0 18px 40px rgba(0,0,0,.34), 0 4px 10px rgba(0,0,0,.2); }.pawan-footer .float-btn:active{ transform:scale(.97); }.pawan-footer .float-btn:focus-visible{ outline:3px solid #111; outline-offset:3px; }.pawan-footer .float-btn svg{ width:19px; height:19px; flex:0 0 auto; }/* ============ CONTACT PANEL ============ */
+.pawan-footer .overlay{
+        position:fixed; inset:0;
+        z-index:80;
+        background:rgba(12,12,12,.48);
+        backdrop-filter:blur(3px);
+        -webkit-backdrop-filter:blur(3px);
+        opacity:0;
+        pointer-events:none;
+        transition:opacity .28s ease;
+      }.pawan-footer .overlay.open{ opacity:1; pointer-events:auto; }.pawan-footer .sheet{
+        position:fixed;
+        z-index:90;
+        left:50%;
+        bottom:0;
+        transform:translate(-50%, 105%);
+        width:min(520px, 100%);
+        max-height:92dvh;
+        overflow-y:auto;
+        background:var(--pf-sheet-bg);
+        border-radius:22px 22px 0 0;
+        box-shadow:0 -18px 60px rgba(0,0,0,.30);
+        padding:28px 28px calc(28px + env(safe-area-inset-bottom));
+        transition:transform .38s cubic-bezier(.32,.9,.3,1);
+      }
+      @media (min-width:640px){.pawan-footer .sheet{
+          bottom:auto; top:50%;
+          transform:translate(-50%, calc(-50% + 24px));
+          opacity:0;
+          border-radius:22px;
+          width:min(500px, calc(100% - 40px));
+          transition:transform .32s cubic-bezier(.32,.9,.3,1), opacity .28s ease;
+        }.pawan-footer .sheet.open{ transform:translate(-50%,-50%); opacity:1; }
+      }.pawan-footer .sheet.open{ transform:translate(-50%, 0); }
+      @media (min-width:640px){.pawan-footer .sheet.open{ transform:translate(-50%,-50%); } }.pawan-footer .sheet h2{
+        margin:0 44px 6px 0;
+        font-size:1.55rem;
+        font-weight:700;
+        letter-spacing:-.01em;
+      }.pawan-footer .sheet .intro{
+        margin:0 0 22px;
+        color:var(--pf-ink-soft);
+        font-size:.95rem;
+        line-height:1.5;
+      }.pawan-footer .close-btn{
+        position:absolute;
+        top:14px; right:14px;
+        width:44px; height:44px;
+        border-radius:50%;
+        border:1px solid var(--pf-line);
+        background:#fff;
+        color:var(--pf-ink);
+        font-size:1.15rem;
+        line-height:1;
+        display:flex; align-items:center; justify-content:center;
+      }.pawan-footer .close-btn:hover{ background:#111; color:#fff; border-color:#111; }.pawan-footer .field{ margin-bottom:16px; }.pawan-footer .field label{
+        display:block;
+        font-size:.82rem;
+        font-weight:600;
+        letter-spacing:.06em;
+        text-transform:uppercase;
+        margin-bottom:7px;
+      }.pawan-footer .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+      @media (max-width:480px){.pawan-footer .field-row{ grid-template-columns:1fr; gap:0; } }.pawan-footer .field label .opt{
+        text-transform:none; letter-spacing:0; font-weight:500; color:var(--pf-ink-mute);
+      }.pawan-footer .field input, .pawan-footer .field select, .pawan-footer .field textarea{
+        width:100%;
+        border:1.5px solid var(--pf-field-line);
+        border-radius:12px;
+        background:var(--pf-field-bg);
+        padding:13px 15px;
+        font:inherit;
+        font-size:1rem;
+        color:var(--pf-ink);
+        appearance:none;
+      }.pawan-footer .field textarea{ min-height:110px; resize:vertical; }.pawan-footer .field select{
+        width:100%;
+        border:1.5px solid var(--pf-field-line);
+        border-radius:12px;
+        background:var(--pf-field-bg);
+        padding:13px 15px;
+        font:inherit;
+        font-size:1rem;
+        color:var(--pf-ink);
+      }.pawan-footer .field input:focus, .pawan-footer .field select:focus, .pawan-footer .field textarea:focus{
+        outline:none;
+        border-color:#111;
+        background:#fff;
+        box-shadow:0 0 0 3px rgba(0,0,0,.08);
+      }.pawan-footer .field .err{
+        display:none;
+        margin-top:6px;
+        font-size:.83rem;
+        color:var(--pf-error);
+      }.pawan-footer .field.invalid input, .pawan-footer .field.invalid select, .pawan-footer .field.invalid textarea{ border-color:var(--pf-error); }.pawan-footer .field.invalid .err{ display:block; }.pawan-footer .send-btn{
+        width:100%;
+        border:none;
+        border-radius:999px;
+        background:var(--pf-btn-bg);
+        color:var(--pf-btn-fg);
+        font-size:1.02rem;
+        font-weight:700;
+        padding:15px 20px;
+        min-height:54px;
+        margin-top:4px;
+        transition:background .2s ease, transform .15s ease;
+      }.pawan-footer .send-btn:hover{ background:#000; }.pawan-footer .send-btn:active{ transform:scale(.985); }.pawan-footer .send-note{
+        margin:12px 0 0;
+        text-align:center;
+        font-size:.83rem;
+        color:var(--pf-ink-mute);
+        line-height:1.45;
+      }.pawan-footer .sent-note{
+        display:none;
+        margin-top:14px;
+        border:1.5px solid #111;
+        border-radius:12px;
+        padding:12px 15px;
+        font-size:.9rem;
+        line-height:1.5;
+        background:#f7f7f5;
+      }.pawan-footer .sent-note.show{ display:block; }
+
+      @media (max-width:640px){.pawan-footer .headline{ top:76px; }.pawan-footer .pawan{ top:42%; font-size:25.5vw; letter-spacing:.02em; }.pawan-footer .hero-wrap{ height:68%; }.pawan-footer .credit{ display:none; }.pawan-footer .float-btn{ font-size:.95rem; padding:.9em 1.4em; }
+      }
+
+      @media (prefers-reduced-motion: reduce){/* freeze everyone mid-stride, still spread across the scene */
+.pawan-footer .walker, .pawan-footer .walker-bob, .pawan-footer .walker svg .lg-a, .pawan-footer .walker svg .lg-b, .pawan-footer .walker svg .sn-a, .pawan-footer .walker svg .sn-b, .pawan-footer .walker svg .ar-a, .pawan-footer .walker svg .ar-b, .pawan-footer .walker svg .fo-a, .pawan-footer .walker svg .fo-b, .pawan-footer .walker svg .hd, .pawan-footer .pf-hero-img{ animation-play-state:paused !important; }.pawan-footer .sheet, .pawan-footer .overlay{ transition:none; }
+      }
+    
+.pawan-footer .footer-bar{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--pf-paper);color:var(--pf-ink-mute);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border-top:1px solid var(--pf-line);}
