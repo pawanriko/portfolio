@@ -1,15 +1,26 @@
 # My Portfolio Website
 
+[![Live site](https://img.shields.io/badge/live-pawanriko.github.io-2ea44f)](https://pawanriko.github.io/portfolio/portfolio/)
+![Top language](https://img.shields.io/github/languages/top/pawanriko/portfolio)
+![Stars](https://img.shields.io/github/stars/pawanriko/portfolio?style=social)
+
+[![My Skills](https://skillicons.dev/icons?i=html,css,js,git,github)](https://skillicons.dev)
+
 This is my personal portfolio — one page with my skills, projects, education and contact details, plus a button to download my resume. I made it with plain HTML, CSS and JavaScript, no framework. It was one of my first proper web projects.
 
 **Live site:** [pawanriko.github.io/portfolio/portfolio/](https://pawanriko.github.io/portfolio/portfolio/)
 
 **Resume:** [Pawan_Kumar_Resume.pdf](https://pawanriko.github.io/portfolio/portfolio/Pawan_Kumar_Resume.pdf) — my one-page resume; the site's Resume button downloads the same file.
 
-## Preview
+## How it works
 
-![Profile](portfolio/images/profile.jpeg)
-
+```mermaid
+flowchart LR
+    Visitor([Visitor]) --> Pages[GitHub Pages]
+    Pages --> HTML[index.html + style.css + js/]
+    HTML --> Sections[Hero · About · Skills · Projects · Education · Contact]
+    Sections --> Resume[Resume PDF download]
+```
 ## What's on the page
 
 - A hero section with my intro
