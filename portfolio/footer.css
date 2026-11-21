@@ -131,7 +131,7 @@
         transform:translateX(-50%);
         z-index:5;
         height:min(79%, 770px);
-        aspect-ratio:1184 / 2096;
+        aspect-ratio:941 / 1672;
         pointer-events:none;
         user-select:none;
         filter:drop-shadow(0 10px 14px rgba(0,0,0,.10));
