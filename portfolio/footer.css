@@ -27,14 +27,17 @@
         overflow:hidden;
         background:var(--pf-paper);
         isolation:isolate;
-      }/* --- headline placeholder (top text — wording to be confirmed) --- */
+      }/* --- headline: "See you around." — sits at the top-left of
+         the footer, right where the white footer section begins,
+         clear of the giant PAWAN and Pawan's head below it --- */
 .pawan-footer .headline{
         position:absolute;
-        top:clamp(20px, 4.5vh, 44px);
-        left:0; right:0;
+        top:clamp(18px, 3.5vh, 36px);
+        left:clamp(18px, 4vw, 44px);
+        right:auto;
         z-index:30;
-        text-align:center;
-        padding:0 20px;
+        text-align:left;
+        padding:0;
         pointer-events:none;
       }.pawan-footer .headline .main-line{
         display:block;
@@ -312,7 +315,7 @@
         background:#f7f7f5;
       }.pawan-footer .sent-note.show{ display:block; }
 
-      @media (max-width:640px){.pawan-footer .headline{ top:76px; }.pawan-footer .pawan{ top:42%; font-size:25.5vw; letter-spacing:.02em; }.pawan-footer .hero-wrap{ height:68%; }.pawan-footer .credit{ display:none; }.pawan-footer .float-btn{ font-size:.95rem; padding:.9em 1.4em; }
+      @media (max-width:640px){.pawan-footer .headline{ top:22px; left:18px; }.pawan-footer .pawan{ top:42%; font-size:25.5vw; letter-spacing:.02em; }.pawan-footer .hero-wrap{ height:68%; }.pawan-footer .credit{ display:none; }.pawan-footer .float-btn{ font-size:.95rem; padding:.9em 1.4em; }
       }
 
       @media (prefers-reduced-motion: reduce){/* freeze everyone mid-stride, still spread across the scene */
